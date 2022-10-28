@@ -15,8 +15,6 @@ const Home = () => {
     (state) => state.products
   );
 
-  console.log(products, "products");
-
   useEffect(() => {
     if (error) {
       return Toast(error, "error");

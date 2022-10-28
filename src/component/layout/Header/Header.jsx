@@ -1,37 +1,3 @@
-// import React from 'react';
-// import { Link} from 'react-router-dom';
-// import SiteNav, {ContentGroup} from 'react-site-nav';
-
-// const Header = () => {
-//     return (
-//         <>
-
-//             <SiteNav
-//             align="left"
-//             rowHeight="100"
-//             background="transparent"
-//             color="#BB84E8"
-//              fontSize="20"
-//              fontFamily="Arial, sans-serif">
-//                 <ContentGroup title={ <Logo/> }/>
-//                 <ContentGroup title="Home" height="200">
-//                 <ul>
-//                     <li><Link to="/my-story">My Story</Link></li>
-//                     <li><Link to="/">Home</Link></li>
-//                 </ul>
-//                 </ContentGroup>
-//                 <ContentGroup title="Products" height="200">
-//                 Free text followed by some links.<br/>
-//                 <a href="mailto:yusinto@gmail.com">Email</a><br/>
-//                 <a href="https://github.com/yusinto">Github</a>
-//                 </ContentGroup>
-//             </SiteNav>
-
-//         </>
-//     );
-// };
-
-// export default Header;
 import * as React from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -46,10 +12,12 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
+import { useSelector } from "react-redux";
 import Logo from "../../logo/Logo";
 import { Router, Switch, Route } from "react-router-dom";
 import { Link } from "react-router-dom";
-import Products from "../../Product/Products";
+
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 
 const pages = ["Products", "Pricing", "Blog"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
@@ -57,6 +25,8 @@ const settings = ["Profile", "Account", "Dashboard", "Logout"];
 const ResponsiveAppBar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+
+  const { cartItems } = useSelector((state) => state.cart);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -73,8 +43,15 @@ const ResponsiveAppBar = () => {
     setAnchorElUser(null);
   };
 
+  console.log(cartItems);
+
   return (
-    <AppBar color="transparent" position="static" elevation={0}>
+    <AppBar
+      color="transparent"
+      sx={{ backgroundColor: "red" }}
+      position="static"
+      elevation={0}
+    >
       <Container maxWidth="xl">
         <Toolbar
           disableGutters
@@ -84,19 +61,11 @@ const ResponsiveAppBar = () => {
             },
           }}
         >
-          <Logo />
+          <Link to="/">
+            <Logo />
+          </Link>
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
-            {/* <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="inherit"
-            >
-              <MenuIcon />
-            </IconButton> */}
             <Menu
               id="menu-appbar"
               anchorEl={anchorElNav}
@@ -114,20 +83,10 @@ const ResponsiveAppBar = () => {
               sx={{
                 display: { xs: "block", md: "none" },
               }}
-            >
-              {/* {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">
-                    {page}
-                    <Link to={"/products"}>{pages}</Link>
-                  </Typography>
-                </MenuItem>
-              ))} */}
-            </Menu>
+            ></Menu>
           </Box>
 
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {/* {pages.map((page) => ( */}
             <Button
               sx={{
                 my: 2,
@@ -143,7 +102,21 @@ const ResponsiveAppBar = () => {
             {/* ))} */}
           </Box>
 
-          <Box sx={{ flexGrow: 0 }}>
+          <Box
+            sx={{
+              flexGrow: 0,
+              display: "flex",
+              boxSizing: "border-box",
+              alignItems: "center",
+            }}
+          >
+            <div style={{ marginRight: "20px" }}>
+              <Link to="/cart">
+                <Tooltip title={cartItems.length}>
+                  <ShoppingCartIcon />
+                </Tooltip>
+              </Link>
+            </div>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
