@@ -19,6 +19,8 @@ import { useParams } from "react-router-dom";
 import ProductReviews from "./ProductReview";
 import "./productDetail.css";
 import Loader from "../Loader/Loader";
+import { addItemsToCart } from "../../actions/cartAction";
+import Header from "../layout/Header/Header";
 
 const options = {
   edit: false,
@@ -54,13 +56,21 @@ const ProdcutDetails = ({ match }) => {
     (state) => state.productDetails
   );
 
-  const [productCount, setProductCount] = React.useState(0);
+  const [productCount, setProductCount] = React.useState(1);
   const handleMinuse = () => {
+    if (productCount <= 1) return;
     setProductCount(productCount - 1);
   };
   const handlePluse = () => {
+    if (product.stock <= productCount) return;
     setProductCount(productCount + 1);
   };
+
+  const addToCartHandler = () => {
+    dispatch(addItemsToCart(params.id, productCount));
+    alert("item added to cart");
+  };
+
   useEffect(() => {
     dispatch(getProductDetails(params.id));
   }, [dispatch, params]);
@@ -70,12 +80,13 @@ const ProdcutDetails = ({ match }) => {
         <Loader />
       ) : (
         <>
+          <Header />
           <Container sx={{ marginTop: "50px" }}>
             <Grid container spacing={2}>
               <Grid item sm={4} xs={12}>
                 <Card>
                   <Carousel>
-                    {product.images &&
+                    {product?.images &&
                       product.images.map((item, i) => (
                         <Img
                           alt={`${i} Slide`}
@@ -112,10 +123,15 @@ const ProdcutDetails = ({ match }) => {
                   </div>
                   <div className="no-of-items">
                     <button onClick={handleMinuse}>-</button>
-                    <input value={productCount} />
+                    <input value={productCount} readOnly={true} />
                     <button onClick={handlePluse}>+</button>
 
-                    <button className="add-to-cart  ">Add to Cart</button>
+                    <button
+                      className="add-to-cart  "
+                      onClick={addToCartHandler}
+                    >
+                      Add to Cart
+                    </button>
                   </div>
                   <div className="status">
                     <p>

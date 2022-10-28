@@ -7,6 +7,7 @@ import ProductDetails from "./component/Product/ProductDetails";
 import Products from "./component/Product/Products";
 import Login from "./component/User/Login";
 import SignUp from "./component/User/SignUp";
+import Cart from "./component/Cart/Cart.js";
 
 function App() {
   return (
@@ -18,8 +19,7 @@ function App() {
           <Route exact path="/products" element={<Products />} />
           <Route exact path="/login" element={<Login />} />
           <Route exact path="/signup" element={<SignUp />} />
-
-
+          <Route exact path="/cart" element={<Cart />} />
         </Routes>
       </BrowserRouter>
       <ContainerToast />
