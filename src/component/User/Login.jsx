@@ -1,15 +1,11 @@
 import * as React from "react";
-import { Link, redirect } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import logo from "../../assets/logo.png";
@@ -18,8 +14,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { login, clearErrors } from "../../actions/userAction";
 import Toast from "../Toast/Toast";
 import Loader from "../Loader/Loader";
-import { useLocation, useNavigate } from "react-router-dom";
 
+// const redirect = location.search ? location.search.split("=")[1] : "/account";
 const Login = ({ history }) => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -32,23 +28,20 @@ const Login = ({ history }) => {
     (state) => state.user
   );
   console.log(isAuthenticated, "isAuthenticated");
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    dispatch(login(loginEmail, loginPassword));
-  };
-
-  const redirect = location.search ? location.search.split("=")[1] : "/account";
-
   React.useEffect(() => {
     if (error) {
       Toast(error, "error");
       dispatch(clearErrors());
     }
-
     if (isAuthenticated) {
-      navigate(redirect);
+      navigate("/account");
     }
   }, [dispatch, error, isAuthenticated]);
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    dispatch(login(loginEmail, loginPassword));
+  };
 
   return (
     <React.Fragment>
@@ -121,10 +114,7 @@ const Login = ({ history }) => {
                       autoComplete="current-password"
                       color="secondary"
                     />
-                    {/* <FormControlLabel
-                                control={<Checkbox value="remember" color="primary" />}
-                                label="Remember me"
-                                /> */}
+
                     <Button
                       type="submit"
                       fullWidth

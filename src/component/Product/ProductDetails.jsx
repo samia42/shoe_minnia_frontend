@@ -80,7 +80,7 @@ const ProdcutDetails = ({ match }) => {
         <Loader />
       ) : (
         <>
-          <Header />
+          <Header/>
           <Container sx={{ marginTop: "50px" }}>
             <Grid container spacing={2}>
               <Grid item sm={4} xs={12}>

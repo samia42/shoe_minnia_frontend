@@ -11,6 +11,9 @@ function Cart(props) {
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
+  const { error, loading, isAuthenticated } = useSelector(
+    (state) => state.user
+  );
 
   const { cartItems } = useSelector((state) => state.cart);
   const [inputVal, setInputVal] = useState("1");
@@ -42,7 +45,11 @@ function Cart(props) {
   }
 
   const cartHandler = () => {
-    navigate("/login?redirect=shipping");
+    if (isAuthenticated) {
+      navigate("/login/shipping");
+    } else {
+      navigate("/login");
+    }
   };
 
   return (
