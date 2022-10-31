@@ -1,6 +1,14 @@
-import { ADD_TO_CART, REMOVE_ITEM_FROM_CART } from "../constants/cartConstant";
+import { act } from "react-dom/test-utils";
+import {
+  ADD_TO_CART,
+  REMOVE_ITEM_FROM_CART,
+  SAVE_SHIPPING_INFO,
+} from "../constants/cartConstant";
 
-export const cartReducer = (state = { cartItems: [] }, action) => {
+export const cartReducer = (
+  state = { cartItems: [], shippingInfo: {} },
+  action
+) => {
   switch (action.type) {
     case ADD_TO_CART:
       console.log("state cart");
@@ -26,6 +34,11 @@ export const cartReducer = (state = { cartItems: [] }, action) => {
       return {
         ...state,
         cartItems: state.cartItems.filter((i) => i.product !== action.payload),
+      };
+    case SAVE_SHIPPING_INFO:
+      return {
+        ...state,
+        shippingInfo: action.payload,
       };
 
     default:

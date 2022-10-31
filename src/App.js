@@ -8,6 +8,7 @@ import Products from "./component/Product/Products";
 import Login from "./component/User/Login";
 import SignUp from "./component/User/SignUp";
 import Cart from "./component/Cart/Cart.js";
+import Shipping from "./component/Cart/shipping";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route exact path="/login" element={<Login />} />
           <Route exact path="/signup" element={<SignUp />} />
           <Route exact path="/cart" element={<Cart />} />
+          <Route exact path="login/shipping" element={<Shipping />} />
         </Routes>
       </BrowserRouter>
       <ContainerToast />

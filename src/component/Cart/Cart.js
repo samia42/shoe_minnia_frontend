@@ -4,10 +4,13 @@ import { useSelector, useDispatch } from "react-redux";
 import "./cart.css";
 import { addItemsToCart, removeItemFromCart } from "../../actions/cartAction";
 import RemoveShoppingCartIcon from "@mui/icons-material/RemoveShoppingCart";
-import { Link } from "react-router-dom";
+
+import { Link, useNavigate } from "react-router-dom";
 
 function Cart(props) {
   const dispatch = useDispatch();
+
+  const navigate = useNavigate();
 
   const { cartItems } = useSelector((state) => state.cart);
   const [inputVal, setInputVal] = useState("1");
@@ -38,7 +41,9 @@ function Cart(props) {
     return total + parseInt(num.price);
   }
 
-  console.log(result, "resulst");
+  const cartHandler = () => {
+    navigate("/login?redirect=shipping");
+  };
 
   return (
     <Fragment>
@@ -87,7 +92,7 @@ function Cart(props) {
               </div>
               <div></div>
               <div className="checkOutButton">
-                <button>check out</button>
+                <button onClick={cartHandler}>check out</button>
               </div>
             </div>
           </div>
