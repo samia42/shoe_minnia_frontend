@@ -4,15 +4,15 @@ import Loader from "../Loader/Loader";
 import { Link, useNavigate } from "react-router-dom";
 import "./Profile.css";
 
-const Profile = ({ history }) => {
-   const navigate= useNavigate
+const Profile = () => {
+   const navigate= useNavigate()
   const { user, loading, isAuthenticated } = useSelector((state) => state.user);
 
   useEffect(() => {
     if (isAuthenticated === false) {
         navigate("/login");
     }
-  }, [history, isAuthenticated]);
+  }, [isAuthenticated]);
   return (
     <Fragment>
       {loading ? (
