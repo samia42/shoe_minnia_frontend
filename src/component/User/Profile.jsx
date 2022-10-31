@@ -5,11 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import "./Profile.css";
 
 const Profile = () => {
-<<<<<<< HEAD
-  const navigate = useNavigate();
-=======
    const navigate= useNavigate()
->>>>>>> 2d52c9b9586ef852b53a99756f3a28129f830471
   const { user, loading, isAuthenticated } = useSelector((state) => state.user);
   console.log("profile");
   useEffect(() => {
