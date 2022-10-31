@@ -8,9 +8,13 @@ import Product from "./ProductCard";
 import { useEffect } from "react";
 import Loader from "../Loader/Loader";
 import Toast from "../Toast/Toast";
+import UserOptions from "../layout/Header/UserOptions";
+
+
 
 const Home = () => {
   const dispatch = useDispatch();
+  const {isAuthenticated,user} = useSelector(state=>state.user)
   const { loading, error, products, productsCount } = useSelector(
     (state) => state.products
   );
@@ -30,6 +34,8 @@ const Home = () => {
         <Fragment>
           <div className="mainContainer">
             <Header />
+            {isAuthenticated && <UserOptions user={user}/>}
+
             <div className="banner">
               <p>Welcome to Shoe Minnia</p>
               <h1>Find Amazing Products Below</h1>
