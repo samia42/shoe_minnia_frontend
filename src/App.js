@@ -36,10 +36,9 @@ function App() {
           <Route exact path="/login" element={<Login />} />
           <Route exact path="/signup" element={<SignUp />} />
           <Route exact path="/cart" element={<Cart />} />
-          <Route exact path="login/shipping" element={<Shipping />} />
-          {/* <Route exact path="/" element={<ProtectedRoute />}> */}
-          <Route exact path="/account" element={<Profile />} />
-          {/* </Route> */}
+          <Route exact path="/" element={<ProtectedRoute />}>
+            <Route exact path="/account" element={<Profile />} />
+          </Route>
         </Routes>
       </BrowserRouter>
       <ContainerToast />
