@@ -1,0 +1,21 @@
+.table-container {
+  margin: auto;
+  display: flex;
+  width: 89vw;
+  padding: 1vmax;
+  margin: 2vmax;
+}
+.table-head {
+  background-color: #35185a;
+  color: white !important;
+}
+.table-head-row > * {
+  color: white;
+}
+.order-detail-container {
+  padding: 2vmax;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

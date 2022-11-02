@@ -8,10 +8,15 @@ import PublicIcon from "@mui/icons-material/Public";
 import PhoneIcon from "@mui/icons-material/Phone";
 import TransferWithinAStationIcon from "@mui/icons-material/TransferWithinAStation";
 import { Country, State } from "country-state-city";
+import Toast from "../Toast/Toast";
 import "./shipping.css";
 import CheckoutSteps from "./checkoutSteps";
+
+import { useNavigate } from "react-router-dom";
+import { LocationCityRounded } from "@mui/icons-material";
 function Shipping(props) {
   const dispatch = useDispatch();
+  const Navigate = useNavigate();
 
   const { shippingInfo } = useSelector((state) => state.cart);
 
@@ -21,7 +26,26 @@ function Shipping(props) {
   const [country, setCountry] = useState(shippingInfo.country);
   const [pinCode, setPinCode] = useState(shippingInfo.pinCode);
   const [phoneNo, setPhoneNo] = useState(shippingInfo.phoneNo);
-  const shippingSubmit = () => {};
+  console.log(
+    address,
+    city,
+    state,
+    country,
+    pinCode,
+    phoneNo,
+    "address, city, state, country, pinCode, phoneNo"
+  );
+  const shippingSubmit = (e) => {
+    e.preventDefault();
+    if (phoneNo.length < 10 || phoneNo.length > 10) {
+      Toast("Phone Number should be 10 digits", "error");
+      return;
+    }
+    dispatch(
+      saveShippingInfo({ address, city, state, country, pinCode, phoneNo })
+    );
+    Navigate("/order/confirm");
+  };
 
   return (
     <div>
@@ -50,8 +74,18 @@ function Shipping(props) {
                 type="text"
                 placeholder="Pin Code"
                 required
-                value={address}
+                value={pinCode}
                 onChange={(e) => setPinCode(e.target.value)}
+              />
+            </div>
+            <div>
+              <LocationCityRounded />
+              <input
+                type="text"
+                placeholder="City"
+                required
+                value={city}
+                onChange={(e) => setCity(e.target.value)}
               />
             </div>
             <div>
@@ -60,7 +94,7 @@ function Shipping(props) {
                 type="text"
                 placeholder="Phone No"
                 required
-                value={address}
+                value={phoneNo}
                 onChange={(e) => setPhoneNo(e.target.value)}
               />
             </div>
@@ -83,7 +117,12 @@ function Shipping(props) {
             {country && (
               <div>
                 <TransferWithinAStationIcon />
-                <select required value={state} onChange={(e) => e.target.value}>
+                <select
+                  required
+                  value={state}
+                  // onChange={(e) => e.target.value}
+                  onChange={(e) => setState(e.target.value)}
+                >
                   <option value="">State</option>
                   {State &&
                     State.getStatesOfCountry(country).map((item) => (
@@ -98,7 +137,7 @@ function Shipping(props) {
               type="submit"
               value="Continue"
               className="shippingBtn"
-              disabled={state ? false : true}
+              disabled={State ? false : true}
             />
           </form>
         </div>

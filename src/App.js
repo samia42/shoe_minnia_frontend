@@ -16,6 +16,11 @@ import { useDispatch, useSelector } from "react-redux";
 import UserOptions from "./component/layout/Header/UserOptions";
 import { useState } from "react";
 import ProtectedRoute from "./component/Route/ProtectedRoute";
+import ConfirmOrder from "./component/Cart/ConfirmOrder";
+import Payment from "./component/Cart/Payment";
+import Success from "./component/Cart/Success";
+import Order from "./component/Orders/Order";
+import OrderDetail from "./component/Orders/OrderDetail";
 
 function App() {
   const [state, setstate] = useState(false);
@@ -36,9 +41,17 @@ function App() {
           <Route exact path="/login" element={<Login />} />
           <Route exact path="/signup" element={<SignUp />} />
           <Route exact path="/cart" element={<Cart />} />
-          <Route exact path="/" element={<ProtectedRoute />}>
-            <Route exact path="/account" element={<Profile />} />
-          </Route>
+          <Route exact path="/login/shipping" element={<Shipping />} />
+
+          {/* <Route exact path="/" element={<ProtectedRoute />}> */}
+          <Route exact path="/account" element={<Profile />} />
+          <Route exact path="/order/confirm" element={<ConfirmOrder />} />
+          <Route exact path="/payment" element={<Payment />} />
+          <Route exact path="/success" element={<Success />} />
+          <Route exact path="/order" element={<Order />} />
+          <Route exact path="/order/:id" element={<OrderDetail />} />
+
+          {/* </Route> */}
         </Routes>
       </BrowserRouter>
       <ContainerToast />
