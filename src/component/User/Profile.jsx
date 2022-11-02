@@ -8,11 +8,11 @@ const Profile = () => {
    const navigate= useNavigate()
   const { user, loading, isAuthenticated } = useSelector((state) => state.user);
   console.log("profile");
-  useEffect(() => {
-    if (isAuthenticated === false) {
-      navigate("/login");
-    }
-  }, [isAuthenticated]);
+  // useEffect(() => {
+  //   if (isAuthenticated === false) {
+  //     navigate("/login");
+  //   }
+  // }, [isAuthenticated]);
   return (
     <Fragment>
       {loading ? (

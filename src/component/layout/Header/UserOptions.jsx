@@ -37,6 +37,7 @@ const UserOptions = ({user}) => {
         
         dispatch(logout());
         Toast("Logout Successfully",'success')
+        navigate('/')
     }
     return (
        <Fragment>

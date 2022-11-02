@@ -5,12 +5,11 @@ import { Route, Navigate, BrowserRouter, Routes } from 'react-router-dom';
 
 const ProtectedRoute = ({ children }) => {
     const {loading,isAuthenticated,user}= useSelector(state=>state.user)
-    if(!loading){
-        if(!isAuthenticated){
+    if(loading===false){
+        if(isAuthenticated===false){
             return <Navigate to='/login' replace={true}/>
         }
-        else 
-        return children;
+        else return children;
     }
     
 };

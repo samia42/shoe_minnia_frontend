@@ -34,13 +34,15 @@ const Login = ({ history }) => {
       dispatch(clearErrors());
     }
     if (isAuthenticated) {
-      navigate("/account");
+      navigate("/");
     }
   }, [dispatch, error, isAuthenticated]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
+
     dispatch(login(loginEmail, loginPassword));
+    navigate('/')
   };
 
   return (

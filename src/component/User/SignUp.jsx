@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Link} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -16,8 +16,9 @@ import Toast from '../Toast/Toast';
 import Loader from '../Loader/Loader';
 
 
-const SignUp = ({history}) => {
+const SignUp = () => {
     const theme = createTheme();
+    const navigate = useNavigate()
     const [user , setUser]= React.useState({
       name:"",
       email:"",
@@ -40,7 +41,7 @@ const SignUp = ({history}) => {
         dispatch(clearErrors());
     }
     if(isAuthenticated){
-        history.push("/account")
+      navigate("/account")
     }
 // eslint-disable-next-line react-hooks/exhaustive-deps
 },[dispatch , error , isAuthenticated]);

@@ -14,12 +14,11 @@ import { loadUser } from "./actions/userAction";
 import Profile from "./component/User/Profile";
 import { useDispatch, useSelector } from "react-redux";
 import UserOptions from "./component/layout/Header/UserOptions";
-import { useState } from "react";
 import ProtectedRoute from "./component/Route/ProtectedRoute";
+import UpdateProfile from "./component/User/UpdateProfile.js"
+import UpdatePassword from "./component/User/UpdatePassword.js"
 
 function App() {
-  const [state, setstate] = useState(false);
-
   useEffect(() => {
     Store.dispatch(loadUser());
   }, []);
@@ -36,9 +35,11 @@ function App() {
           <Route exact path="/login" element={<Login />} />
           <Route exact path="/signup" element={<SignUp />} />
           <Route exact path="/cart" element={<Cart />} />
-          <Route exact path="/" element={<ProtectedRoute />}>
-            <Route exact path="/account" element={<Profile />} />
-          </Route>
+          <Route exact path="/account" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
+          <Route exact path="/me/update" element={<ProtectedRoute><UpdateProfile /></ProtectedRoute>} />
+          <Route exact path="/password/update" element={<ProtectedRoute><UpdatePassword /></ProtectedRoute>} />
+
+
         </Routes>
       </BrowserRouter>
       <ContainerToast />
