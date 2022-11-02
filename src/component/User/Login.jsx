@@ -37,11 +37,7 @@ const Login = ({ history }) => {
       dispatch(clearErrors());
     }
     if (isAuthenticated) {
-<<<<<<< HEAD
-      navigate("/");
-=======
       navigate(redirect);
->>>>>>> 4a0af096d2222fb7cee9036179eca9d5ae7c5648
     }
   }, [dispatch, error, isAuthenticated]);
 
