@@ -4,12 +4,14 @@ import { useSelector, useDispatch } from "react-redux";
 import "./cart.css";
 import { addItemsToCart, removeItemFromCart } from "../../actions/cartAction";
 import RemoveShoppingCartIcon from "@mui/icons-material/RemoveShoppingCart";
+import { useLocation } from "react-router-dom";
 
 import { Link, useNavigate } from "react-router-dom";
+// import { Toast } from "react-toastify/dist/components";
 
 function Cart(props) {
   const dispatch = useDispatch();
-
+  const location = useLocation();
   const navigate = useNavigate();
   const { error, loading, isAuthenticated } = useSelector(
     (state) => state.user
@@ -34,6 +36,8 @@ function Cart(props) {
     dispatch(addItemsToCart(id, newQty));
   };
 
+  const redirect = location.search ? location.search.split("=")[1] : "";
+
   const deleteCartItem = (id) => {
     console.log(id, "id");
     dispatch(removeItemFromCart(id));
@@ -45,11 +49,13 @@ function Cart(props) {
   }
 
   const cartHandler = () => {
-    if (isAuthenticated) {
-      navigate("/login/shipping");
-    } else {
-      navigate("/login");
-    }
+    navigate("/login?redirect=shipping");
+    // if (isAuthenticated) {
+    //   navigate("/shipping");
+    // } else {
+    //   // Toast("first login ", "success");
+    //   navigate("/login");
+    // }
   };
 
   return (

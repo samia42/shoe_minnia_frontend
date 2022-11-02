@@ -28,13 +28,20 @@ const Login = ({ history }) => {
     (state) => state.user
   );
   console.log(isAuthenticated, "isAuthenticated");
+
+  const redirect = location.search ? location.search.split("=")[1] : "/account";
+
   React.useEffect(() => {
     if (error) {
       Toast(error, "error");
       dispatch(clearErrors());
     }
     if (isAuthenticated) {
+<<<<<<< HEAD
       navigate("/");
+=======
+      navigate(redirect);
+>>>>>>> 4a0af096d2222fb7cee9036179eca9d5ae7c5648
     }
   }, [dispatch, error, isAuthenticated]);
 

@@ -56,6 +56,12 @@ const ProdcutDetails = ({ match }) => {
     (state) => state.productDetails
   );
 
+  const { cartItems } = useSelector((state) => state.cart);
+  console.log(
+    cartItems.filter((item) => item),
+    "cart items"
+  );
+
   const [productCount, setProductCount] = React.useState(1);
   const handleMinuse = () => {
     if (productCount <= 1) return;
@@ -65,6 +71,8 @@ const ProdcutDetails = ({ match }) => {
     if (product.stock <= productCount) return;
     setProductCount(productCount + 1);
   };
+
+  console.log(product.stock <= productCount, "product");
 
   const addToCartHandler = () => {
     dispatch(addItemsToCart(params.id, productCount));
@@ -80,7 +88,7 @@ const ProdcutDetails = ({ match }) => {
         <Loader />
       ) : (
         <>
-          <Header/>
+          <Header />
           <Container sx={{ marginTop: "50px" }}>
             <Grid container spacing={2}>
               <Grid item sm={4} xs={12}>
@@ -127,6 +135,7 @@ const ProdcutDetails = ({ match }) => {
                     <button onClick={handlePluse}>+</button>
 
                     <button
+                      disabled={product.stock <= productCount}
                       className="add-to-cart  "
                       onClick={addToCartHandler}
                     >

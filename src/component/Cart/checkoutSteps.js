@@ -6,6 +6,7 @@ import {
 import { Typography, Stepper, StepLabel, Step } from "@mui/material";
 import React from "react";
 import { Fragment } from "react";
+import "./checkoutStep.css";
 
 function CheckoutSteps({ activeStep }) {
   console.log(activeStep, "active step");
@@ -37,7 +38,7 @@ function CheckoutSteps({ activeStep }) {
           >
             <StepLabel
               style={{
-                color: activeStep >= index ? "gray" : "rgba(0,0,0.49)",
+                color: activeStep >= index ? "gray" : "#bb84e8",
               }}
               icon={item.icon}
             >

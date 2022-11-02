@@ -1,5 +1,5 @@
 import * as React from "react";
-import {Link} from 'react-router-dom';
+import { Link } from "react-router-dom";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -20,9 +20,9 @@ import Logo from "../../logo/Logo";
 // import Login from "../../User/Login";
 import { Divider, ListItemIcon } from "@mui/material";
 import { Logout, PersonAdd, Settings } from "@mui/icons-material";
+import Badge from "@mui/material/Badge";
 
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-
 
 const ResponsiveAppBar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -114,9 +114,9 @@ const ResponsiveAppBar = () => {
           >
             <div style={{ marginRight: "20px" }}>
               <Link to="/cart">
-                <Tooltip title={cartItems.length}>
+                <Badge badgeContent={cartItems.length} color="primary">
                   <ShoppingCartIcon />
-                </Tooltip>
+                </Badge>
               </Link>
             </div>
             <Tooltip title="Open settings">
@@ -125,71 +125,77 @@ const ResponsiveAppBar = () => {
               </IconButton>
             </Tooltip>
             <Menu
-        anchorEl={anchorEl}
-        id="account-menu"
-        open={open}
-        onClose={handleClose}
-        onClick={handleClose}
-        PaperProps={{
-          elevation: 0,
-          sx: {
-            overflow: 'visible',
-            filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
-            mt: 1.5,
-            '& .MuiAvatar-root': {
-              width: 32,
-              height: 32,
-              ml: -0.5,
-              mr: 1,
-            },
-            '&:before': {
-              content: '""',
-              display: 'block',
-              position: 'absolute',
-              top: 0,
-              right: 14,
-              width: 10,
-              height: 10,
-              bgcolor: 'background.paper',
-              transform: 'translateY(-50%) rotate(45deg)',
-              zIndex: 0,
-            },
-          },
-        }}
-        transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-        anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-      >
-        {/* <MenuItem>
+              anchorEl={anchorEl}
+              id="account-menu"
+              open={open}
+              onClose={handleClose}
+              onClick={handleClose}
+              PaperProps={{
+                elevation: 0,
+                sx: {
+                  overflow: "visible",
+                  filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
+                  mt: 1.5,
+                  "& .MuiAvatar-root": {
+                    width: 32,
+                    height: 32,
+                    ml: -0.5,
+                    mr: 1,
+                  },
+                  "&:before": {
+                    content: '""',
+                    display: "block",
+                    position: "absolute",
+                    top: 0,
+                    right: 14,
+                    width: 10,
+                    height: 10,
+                    bgcolor: "background.paper",
+                    transform: "translateY(-50%) rotate(45deg)",
+                    zIndex: 0,
+                  },
+                },
+              }}
+              transformOrigin={{ horizontal: "right", vertical: "top" }}
+              anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
+            >
+              {/* <MenuItem>
           <Avatar /> Profile
         </MenuItem>
         <MenuItem>
           <Avatar /> My account
         </MenuItem>
         <Divider /> */}
-        <Link to={"/login"} style={{ color: "Black" , textDecoration:"none"}}>
-          <MenuItem>
-            <ListItemIcon>
-              <PersonAdd fontSize="small" />
-            </ListItemIcon>
-            SignIn
-          </MenuItem>
-        </Link>
-        <Link to ="/signup" style={{ color: "Black" , textDecoration:"none"}} >
-          <MenuItem>
-            <ListItemIcon>
-              <Settings fontSize="small" />
-            </ListItemIcon>
-            SignUp
-          </MenuItem>
-        </Link>
-        
-        <MenuItem>
-          <ListItemIcon>
-            <Logout fontSize="small" />
-          </ListItemIcon>
-          Logout
-        </MenuItem>
-      </Menu>
+              <Link
+                to={"/login"}
+                style={{ color: "Black", textDecoration: "none" }}
+              >
+                <MenuItem>
+                  <ListItemIcon>
+                    <PersonAdd fontSize="small" />
+                  </ListItemIcon>
+                  SignIn
+                </MenuItem>
+              </Link>
+              <Link
+                to="/signup"
+                style={{ color: "Black", textDecoration: "none" }}
+              >
+                <MenuItem>
+                  <ListItemIcon>
+                    <Settings fontSize="small" />
+                  </ListItemIcon>
+                  SignUp
+                </MenuItem>
+              </Link>
+
+              <MenuItem>
+                <ListItemIcon>
+                  <Logout fontSize="small" />
+                </ListItemIcon>
+                Logout
+              </MenuItem>
+            </Menu>
           </Box>
         </Toolbar>
       </Container>

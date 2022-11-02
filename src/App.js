@@ -17,6 +17,11 @@ import UserOptions from "./component/layout/Header/UserOptions";
 import ProtectedRoute from "./component/Route/ProtectedRoute";
 import UpdateProfile from "./component/User/UpdateProfile.js"
 import UpdatePassword from "./component/User/UpdatePassword.js"
+import ConfirmOrder from "./component/Cart/ConfirmOrder";
+import Payment from "./component/Cart/Payment";
+import Success from "./component/Cart/Success";
+import Order from "./component/Orders/Order";
+import OrderDetail from "./component/Orders/OrderDetail";
 
 function App() {
   useEffect(() => {
@@ -38,8 +43,14 @@ function App() {
           <Route exact path="/account" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
           <Route exact path="/me/update" element={<ProtectedRoute><UpdateProfile /></ProtectedRoute>} />
           <Route exact path="/password/update" element={<ProtectedRoute><UpdatePassword /></ProtectedRoute>} />
+          <Route exact path="/login/shipping" element={<Shipping />} />
+          <Route exact path="/order/confirm" element={<ConfirmOrder />} />
+          <Route exact path="/payment" element={<Payment />} />
+          <Route exact path="/success" element={<Success />} />
+          <Route exact path="/order" element={<Order />} />
+          <Route exact path="/order/:id" element={<OrderDetail />} />
 
-
+          {/* </Route> */}
         </Routes>
       </BrowserRouter>
       <ContainerToast />
