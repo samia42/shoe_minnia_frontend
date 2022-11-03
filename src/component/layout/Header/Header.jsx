@@ -45,8 +45,6 @@ const ResponsiveAppBar = () => {
     setAnchorEl(null);
   };
 
-  console.log(cartItems);
-
   return (
     <AppBar
       color="transparent"

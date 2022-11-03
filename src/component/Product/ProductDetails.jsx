@@ -9,11 +9,20 @@ import {
   Card,
   Divider,
   Box,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  Button,
 } from "@mui/material";
-
+import Toast from "../Toast/Toast";
 import { useSelector, useDispatch } from "react-redux";
 import Carousel from "react-material-ui-carousel";
-import { getProductDetails } from "../../actions/productAction";
+import {
+  clearErrors,
+  getProductDetails,
+  newReview,
+} from "../../actions/productAction";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import ProductReviews from "./ProductReview";
@@ -21,6 +30,8 @@ import "./productDetail.css";
 import Loader from "../Loader/Loader";
 import { addItemsToCart } from "../../actions/cartAction";
 import Header from "../layout/Header/Header";
+import { useState } from "react";
+import { NEW_REVIEW_RESET } from "../../constants/productConstants";
 
 const options = {
   edit: false,
@@ -57,12 +68,23 @@ const ProdcutDetails = ({ match }) => {
   );
 
   const { cartItems } = useSelector((state) => state.cart);
+
+  const { success, error: reviewError } = useSelector(
+    (state) => state.newReviews
+  );
+  const itemPresent = cartItems.find((item) => item.product === product._id);
   console.log(
-    cartItems.filter((item) => item),
-    "cart items"
+    cartItems.filter((item) => item.product === product._id),
+    "items",
+    itemPresent
   );
 
   const [productCount, setProductCount] = React.useState(1);
+  const [rating, setRating] = useState(1);
+  const [open, setOpen] = useState(false);
+
+  const [comment, setComment] = useState("");
+
   const handleMinuse = () => {
     if (productCount <= 1) return;
     setProductCount(productCount - 1);
@@ -72,16 +94,36 @@ const ProdcutDetails = ({ match }) => {
     setProductCount(productCount + 1);
   };
 
-  console.log(product.stock <= productCount, "product");
+  const submitReviewtoggle = () => {
+    open ? setOpen(false) : setOpen(true);
+  };
 
   const addToCartHandler = () => {
     dispatch(addItemsToCart(params.id, productCount));
-    alert("item added to cart");
+    Toast("Item Added to Cart Successfully", "Success");
+  };
+
+  const reviewSubmitHandler = () => {
+    const myForm = new FormData();
+
+    myForm.set("rating", rating);
+    myForm.set("comment", comment);
+    myForm.set("productId", params.id);
+
+    dispatch(newReview(myForm));
+
+    setOpen(false);
   };
 
   useEffect(() => {
     dispatch(getProductDetails(params.id));
-  }, [dispatch, params]);
+    dispatch({ type: NEW_REVIEW_RESET });
+
+    if (success) {
+      Toast("Review Submitted Successfully", "Success");
+      dispatch({ type: NEW_REVIEW_RESET });
+    }
+  }, [dispatch, params, success]);
   return (
     <>
       {loading ? (
@@ -109,16 +151,14 @@ const ProdcutDetails = ({ match }) => {
               <Grid item sm={6} xs={12}>
                 <Item>
                   <Typography variant="h3" className="name">
-                    {product.name}
+                    {product?.name}
                   </Typography>
                   <Divider />
                   <div className="review">
                     <Rating
-                      name="simple-controlled"
+                      // name="simple-controlled"
                       value={product?.reviews?.length}
-                      // onChange={(event, newValue) => {
-                      //   setValue(newValue);
-                      // }}
+                      readOnly
                     />
                     <Typography>({product?.reviews?.length}Reviews)</Typography>
                   </div>
@@ -126,7 +166,7 @@ const ProdcutDetails = ({ match }) => {
 
                   <div className="price">
                     <Typography>
-                      RS:<span>{product.price}</span>
+                      RS:<span>{product?.price}</span>
                     </Typography>
                   </div>
                   <div className="no-of-items">
@@ -135,7 +175,11 @@ const ProdcutDetails = ({ match }) => {
                     <button onClick={handlePluse}>+</button>
 
                     <button
-                      disabled={product.stock <= productCount}
+                      // disabled={product.stock <= productCount}
+                      disabled={
+                        itemPresent?.stock <= productCount &&
+                        product?.stock <= productCount
+                      }
                       className="add-to-cart  "
                       onClick={addToCartHandler}
                     >
@@ -147,11 +191,11 @@ const ProdcutDetails = ({ match }) => {
                       Status:
                       <b
                         style={{
-                          color: product.stock < 1 ? "red" : "green",
+                          color: product?.stock < 1 ? "red" : "green",
                           marginLeft: "10px",
                         }}
                       >
-                        {product.stock < 1 ? "OutOfStock" : "InStock"}
+                        {product?.stock < 1 ? "OutOfStock" : "InStock"}
                       </b>
                     </p>
                   </div>
@@ -160,9 +204,14 @@ const ProdcutDetails = ({ match }) => {
                     <Typography varient="h1" className="description">
                       Description
                     </Typography>
-                    <div>{product.description}</div>
+                    <div>{product?.description}</div>
                   </div>
-                  <button className="submit-button">Submit Review</button>
+                  <button
+                    onClick={submitReviewtoggle}
+                    className="submit-button"
+                  >
+                    Submit Review
+                  </button>
                 </Item>
               </Grid>
             </Grid>
@@ -171,8 +220,34 @@ const ProdcutDetails = ({ match }) => {
             <Grid container spacing={2}>
               <div className="review-heading">
                 <Typography variant="h5">Product Reviews</Typography>
+                <Dialog
+                  aria-labelledby="simple-dialog-title"
+                  open={open}
+                  onClose={submitReviewtoggle}
+                >
+                  <DialogTitle>Submit Review</DialogTitle>
+                  <DialogContent className="submit-dialog">
+                    <Rating
+                      onChange={(e) => setRating(e.target.value)}
+                      value={rating}
+                    />
+                    <textarea
+                      className="dialog-text-area"
+                      cols="30"
+                      rows="5"
+                      value={comment}
+                      onChange={(e) => setComment(e.target.value)}
+                    ></textarea>
+                    <DialogActions>
+                      <Button color="secondary" onClick={submitReviewtoggle}>
+                        Cancel
+                      </Button>
+                      <Button onClick={reviewSubmitHandler}>Submit</Button>
+                    </DialogActions>
+                  </DialogContent>
+                </Dialog>
                 <Grid item sm={10} xs={2}>
-                  {product.reviews?.length ? (
+                  {product?.reviews?.length ? (
                     <div className="reviews">
                       {product.reviews.map((reviews) => (
                         <ProductReviews reviews={reviews} />

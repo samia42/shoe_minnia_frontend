@@ -11,7 +11,6 @@ const options = {
   size: window.innerWidth < 600 ? 13 : 25,
 };
 const ProductCard = ({ product }) => {
-  console.log(product, "product in product card");
   return (
     <>
       <Link className="productCard" to={`/${product?._id}`}>

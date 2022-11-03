@@ -1,14 +1,16 @@
-import { Typography } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 import { Box, Container } from "@mui/system";
 import React from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { clearErrors, getOrdersDetails } from "../../actions/orderAction";
 import "./order.css";
 
 function OrderDetail(props) {
   const location = useParams();
+
+  const navigate = useNavigate();
 
   const { loading, error, order } = useSelector((state) => state.orderDetails);
   const dispatch = useDispatch();
@@ -24,30 +26,39 @@ function OrderDetail(props) {
 
   return (
     <Container className="order-detail-container">
-      <Box>
+      <Box className="order-heading">
         <Typography>Order Id #{order?._id}</Typography>
       </Box>
-      <Box>
+      <Box className="shipping-info">
         <Typography>Shipping Info</Typography>
-        <Typography>{order?.shippingInfo?.address}</Typography>
-        <Typography>{order?.shippingInfo?.city}</Typography>
-        <Typography>{order?.shippingInfo?.state}</Typography>
-        <Typography>{order?.shippingInfo?.phoneNo}</Typography>
+        <div></div>
+        <Typography>Address: {order?.shippingInfo?.address}</Typography>
+        <Typography>City: {order?.shippingInfo?.city}</Typography>
+        <Typography>State: {order?.shippingInfo?.state}</Typography>
+        <Typography>Phone No: {order?.shippingInfo?.phoneNo}</Typography>
       </Box>
-      <Box>
+      <Box className="shipping-info">
+        <Typography>Order Status</Typography>
+        <Typography>{order?.orderStatus}</Typography>
+      </Box>
+      <Typography className="order-item">Ordered Items</Typography>
+      <Box className="order-item">
         {order?.orderItems &&
           order?.orderItems.map((item) => (
             <>
-              <Typography>{item.name}</Typography>
+              <Typography>Product Name: {item.name}</Typography>
               <Typography>{item.price}</Typography>
-              <img src={item.image} alt="image" />
+              <div className="item-image">
+                <img src={item.image} alt="image" />
+              </div>
             </>
           ))}
       </Box>
-      <Box>
+      <Box className="price">
         <Typography>Total Price</Typography>
         {order?.totalPrice}
       </Box>
+      <Button onClick={() => navigate(-1)}>Go Back</Button>
     </Container>
   );
 }

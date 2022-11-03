@@ -18,7 +18,6 @@ function ConfirmOrder({ navigation }) {
     (acc, item) => acc + item.quantity * item.price,
     0
   );
-  console.log(cartItems, "shipping info");
   const shippingCharges = subTotal > 1000 ? 0 : 200;
   const tax = subTotal * 0.18;
 

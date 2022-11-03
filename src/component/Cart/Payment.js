@@ -14,7 +14,6 @@ function Payment() {
   const navigate = useNavigate();
   const orderInfo = JSON.parse(sessionStorage.getItem("orderInfo"));
 
-  console.log(orderInfo, "order info");
   const { state } = useLocation();
 
   const { shippingInfo, cartItems } = useSelector((state) => state.cart);

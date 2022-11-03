@@ -11,8 +11,6 @@ export const cartReducer = (
 ) => {
   switch (action.type) {
     case ADD_TO_CART:
-      console.log("state cart");
-
       const item = action.payload;
       const isItemExit = state.cartItems.find(
         (i) => i.product === item.product

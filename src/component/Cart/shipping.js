@@ -26,15 +26,7 @@ function Shipping(props) {
   const [country, setCountry] = useState(shippingInfo.country);
   const [pinCode, setPinCode] = useState(shippingInfo.pinCode);
   const [phoneNo, setPhoneNo] = useState(shippingInfo.phoneNo);
-  console.log(
-    address,
-    city,
-    state,
-    country,
-    pinCode,
-    phoneNo,
-    "address, city, state, country, pinCode, phoneNo"
-  );
+
   const shippingSubmit = (e) => {
     e.preventDefault();
     if (phoneNo.length < 10 || phoneNo.length > 10) {

@@ -27,7 +27,6 @@ const Login = ({ history }) => {
   const { error, loading, isAuthenticated } = useSelector(
     (state) => state.user
   );
-  console.log(isAuthenticated, "isAuthenticated");
 
   const redirect = location.search ? location.search.split("=")[1] : "/account";
 
@@ -45,7 +44,7 @@ const Login = ({ history }) => {
     event.preventDefault();
 
     dispatch(login(loginEmail, loginPassword));
-    navigate('/')
+    navigate("/");
   };
 
   return (

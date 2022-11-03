@@ -13,7 +13,7 @@ function ProductReview({ reviews }) {
           <img src={profilePng} alt="User" />
         </div>
 
-        <Rating value={reviews.rating} />
+        <Rating value={reviews.rating} readOnly />
 
         <h3>{capitalize(reviews.name)}</h3>
 
