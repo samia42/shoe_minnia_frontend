@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 import "./cart.css";
 import image from "../../images/Profile.png";
 function cartItem({ item, deleteCartItems }) {
-  console.log(item);
   return (
     <div className="cartItemCard">
       <img src={item.image} />

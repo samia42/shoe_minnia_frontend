@@ -13,35 +13,31 @@ function Cart(props) {
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
-  const { error, loading, isAuthenticated } = useSelector(
-    (state) => state.user
-  );
-
   const { cartItems } = useSelector((state) => state.cart);
-  const [inputVal, setInputVal] = useState("1");
 
   const increaseQuantity = (id, quantity, stock) => {
     const newQty = quantity + 1;
     if (stock <= quantity) {
       return;
     }
-    setInputVal(newQty);
-    dispatch(addItemsToCart(id, inputVal));
+    dispatch(addItemsToCart(id, newQty));
   };
 
   const decreaseQuantity = (id, quantity) => {
     const newQty = quantity - 1;
-    if (1 >= quantity) return;
-
+    if (1 >= quantity) {
+      return;
+    }
     dispatch(addItemsToCart(id, newQty));
   };
 
   const redirect = location.search ? location.search.split("=")[1] : "";
 
   const deleteCartItem = (id) => {
-    console.log(id, "id");
     dispatch(removeItemFromCart(id));
   };
+
+  console.log(cartItems, "cartItems");
 
   const result = cartItems.reduce(getSum, 0);
   function getSum(total, num) {
@@ -81,11 +77,21 @@ function Cart(props) {
                 <div className="cartContainer" key={item.product}>
                   <CartItem item={item} deleteCartItems={deleteCartItem} />
                   <div className="cartInput">
-                    <button onClick={decreaseQuantity}>-</button>
-                    <input value={inputVal} defaultValue="23" readOnly />
                     <button
                       onClick={() =>
-                        increaseQuantity(item.product, inputVal, item.stock)
+                        decreaseQuantity(item.product, item.quantity)
+                      }
+                    >
+                      -
+                    </button>
+                    <input value={item?.quantity} defaultValue="23" readOnly />
+                    <button
+                      onClick={() =>
+                        increaseQuantity(
+                          item.product,
+                          item.quantity,
+                          item.stock
+                        )
                       }
                     >
                       +{" "}
@@ -101,7 +107,13 @@ function Cart(props) {
               <div></div>
               <div className="cartGrossProfitBox">
                 <p>Gross Total</p>
-                <p> {`RS:${result}`}</p>
+                <p>
+                  {`Rs:${cartItems.reduce(
+                    (acc, item) => acc + item.quantity * item.price,
+                    0
+                  )}
+                  `}
+                </p>
               </div>
               <div></div>
               <div className="checkOutButton">

@@ -9,7 +9,6 @@ import { Fragment } from "react";
 import "./checkoutStep.css";
 
 function CheckoutSteps({ activeStep }) {
-  console.log(activeStep, "active step");
   const steps = [
     {
       label: <Typography>Shipping Detail</Typography>,
