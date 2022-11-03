@@ -22,6 +22,8 @@ import Payment from "./component/Cart/Payment";
 import Success from "./component/Cart/Success";
 import Order from "./component/Orders/Order";
 import OrderDetail from "./component/Orders/OrderDetail";
+import AdminDashboard from "./component/admin/AdminDashboard.jsx"
+import AdminProducts from "./component/admin/AdminProducts.js"
 
 function App() {
   useEffect(() => {
@@ -50,7 +52,11 @@ function App() {
           <Route exact path="/order" element={<Order />} />
           <Route exact path="/order/:id" element={<OrderDetail />} />
 
-          {/* </Route> */}
+          {/* </Admin Routes> */}
+          <Route exact path="/admin/dashboard" element={<ProtectedRoute isAdmin={true}><AdminDashboard  /></ProtectedRoute>} />
+          <Route exact path="/admin/products" element={<ProtectedRoute isAdmin={true}><AdminProducts  /></ProtectedRoute>} />
+
+
         </Routes>
       </BrowserRouter>
       <ContainerToast />

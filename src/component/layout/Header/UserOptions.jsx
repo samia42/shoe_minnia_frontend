@@ -11,12 +11,14 @@ import { useNavigate } from 'react-router-dom';
 import Toast from '../../Toast/Toast';
 import { useDispatch } from 'react-redux';
 import {logout} from '../../../actions/userAction'
+import { Home } from '@mui/icons-material';
 
 
 const UserOptions = ({user}) => {
     const navigate= useNavigate()
     const dispatch = useDispatch()
     const actions = [
+        { icon: <Home />, name: 'Home', func:home  },
         { icon: <PersonIcon />, name: 'Profile', func:account  },
         { icon: <ListAltIcon />, name: 'Orders', func:orders  },
         { icon: <ExitToAppIcon />, name: 'Logout', func:logoutUser  },
@@ -25,6 +27,9 @@ const UserOptions = ({user}) => {
         actions.unshift(  { icon: <DashboardIcon />, name: 'Dashboard', func:dashboard })
     }
     function dashboard(){
+        navigate('/admin/dashboard')
+    }
+    function home(){
         navigate('/')
     }
     function account(){

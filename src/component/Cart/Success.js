@@ -10,11 +10,10 @@ function Success(props) {
       <Box className="success-box">
         <CheckBoxIcon sx={{ color: "blue", width: "35px", height: "35px" }} />
         <Typography>Order Placed Successfully</Typography>
-        <Button variant="contained">
-          <Link to="/order" sx={{ color: "white" }}>
-            View Your Order
+        
+          <Link to="/order" >
+          <Button  varient="contained"> View Your Order</Button> 
           </Link>
-        </Button>
       </Box>
     </Container>
   );

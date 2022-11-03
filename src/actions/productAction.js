@@ -7,9 +7,13 @@ import {
   PRODUCT_DETAILS_REQUEST,
   PRODUCT_DETAILS_SUCCESS,
   PRODUCT_DETAILS_FAIL,
+  ADMIN_PRODUCT_REQUEST,
+  ADMIN_PRODUCT_SUCCESS,
+  ADMIN_PRODUCT_FAIL,
   CLEAR_ERRORS,
 } from "../constants/productConstants";
 
+//All Products
 export const getProduct =
   (page = 1) =>
   async (dispatch) => {
@@ -30,6 +34,25 @@ export const getProduct =
     }
   };
 
+//ALL Admin Products
+export const getAdminProducts = () => async (dispatch) => {
+  try {
+    dispatch({ADMIN_PRODUCT_REQUEST})
+    const {data} = await axios.get('/api/admin/products')
+
+    dispatch({
+      type: ADMIN_PRODUCT_SUCCESS,
+      payload: data.products,
+    });
+  } catch (error) {
+    dispatch({
+      type: ADMIN_PRODUCT_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
+
+//product detail
 export const getProductDetails = (_id) => async (dispatch) => {
   try {
     dispatch({ type: PRODUCT_DETAILS_REQUEST });

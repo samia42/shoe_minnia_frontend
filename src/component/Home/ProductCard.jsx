@@ -14,7 +14,7 @@ const ProductCard = ({ product }) => {
   console.log(product, "product in product card");
   return (
     <>
-      <Link className="productCard" to={`/${product?._id}`}>
+      <Link sx={{color:"black"}} className="productCard" to={`/${product?._id}`}>
         <img src={product?.images[0]?.url} alt={product?.name} />
         <p>{product?.name}</p>
         <div>
