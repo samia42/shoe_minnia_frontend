@@ -1,10 +1,29 @@
-import { Button, Card, CardActions, CardContent, CssBaseline, Typography } from '@mui/material';
-import { Box } from '@mui/system';
 import React from 'react';
+import {  CssBaseline} from '@mui/material';
+import { Box } from '@mui/system';
 import InfoCard from './InfoCard';
 import SideBar from './SideBar';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
+import { getAdminProducts } from '../../actions/productAction';
 
 const AdminDashboard = () => {
+
+    const dispatch = useDispatch();
+    const navigate= useNavigate();
+    const { products } = useSelector((state) => state.products);
+    let outOfStock = 0;
+    products && products.forEach((item)=>{
+        if(item.stock === 0){
+            outOfStock += 1
+        }
+    })
+
+    useEffect(() => {
+        dispatch(getAdminProducts());
+      }, [dispatch]);
+
     return (
         <>
          <Box
@@ -14,7 +33,7 @@ const AdminDashboard = () => {
                 <CssBaseline />
                 <SideBar/>
                <InfoCard name={"Total Ammount"}/>
-               <InfoCard name={"All Products"}/>
+               <InfoCard name={"All Products"} data={products && products.length}/>
                <InfoCard name={"All Orders"}/>
                <InfoCard name={"All Users"}/>
 

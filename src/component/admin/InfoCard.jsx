@@ -19,7 +19,7 @@ const InfoCard = (props) => {
                     <Card sx={{ minWidth: 275 }}>
                     <CardContent>
                         <Typography color="black"  gutterBottom>
-                        {props.name}
+                        {props.name}: {props.data}
                         </Typography>
                     </CardContent>
                     <CardActions>

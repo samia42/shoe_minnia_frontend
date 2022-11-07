@@ -5,7 +5,7 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import { Create, HomeOutlined, ListAltOutlined, People, Person3Outlined, Reviews, StoreOutlined,} from '@mui/icons-material';
+import { Create, HomeOutlined, ListAltOutlined, People, Reviews, StoreOutlined,} from '@mui/icons-material';
 import { Link } from 'react-router-dom';
 
 

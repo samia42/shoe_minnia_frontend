@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect } from "react";
-import { DataGrid } from "@mui/x-data-grid";
+import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { useSelector, useDispatch } from "react-redux";
 import {
   clearErrors,
@@ -7,14 +7,14 @@ import {
 } from "../../actions/productAction";
 import { Link, useNavigate } from "react-router-dom";
 import Toast from "../Toast/Toast";
-import { Button, CssBaseline } from "@mui/material";
+import { Button, CssBaseline, Toolbar, Typography } from "@mui/material";
 import {Delete,Edit} from "@mui/icons-material";
 import SideBar from "./SideBar";
 import { Box } from "@mui/system";
 // import { DELETE_PRODUCT_RESET } from "../../constants/productConstants";
 
 const AdminProducts = () => {
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   const navigate= useNavigate();
 
@@ -118,23 +118,32 @@ const AdminProducts = () => {
         
         <Box
          sx={{
-            mt:10,
+            mt:5,
+            p:5,
             display:'flex',
         }}
         >
             <CssBaseline />
             <SideBar />
-
-            <DataGrid
-            rows={rows}
-            columns={columns}
-            pageSize={10}
-            disableSelectionOnClick
-            className="productListTable"
-            autoHeight
+            <Box
+             sx={{
+              flexGrow:2,
+            }}
             >
-                <h1>All Products</h1>
-            </DataGrid>
+              <Typography> All Products</Typography>
+              <DataGrid
+                rows={rows}
+                columns={columns}
+                pageSize={10}
+                disableSelectionOnClick
+                className="productListTable"
+                autoHeight
+                components={{
+                  Toolbar: GridToolbar
+                }}
+                />
+            </Box>
+            
         </Box>
          
     </Fragment>
