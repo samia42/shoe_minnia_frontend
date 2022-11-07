@@ -18,9 +18,12 @@ import "./order.css";
 function Order(props) {
   const dispatch = useDispatch();
 
-  const { orders, loading } = useSelector((state) => state.myOrders);
+  const { orders, loading, error } = useSelector((state) => state.myOrders);
   const { user } = useSelector((state) => state.user);
   useEffect(() => {
+    if (error) {
+      dispatch(clearErrors());
+    }
     dispatch(myOrders());
   }, [dispatch]);
 

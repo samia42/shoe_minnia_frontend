@@ -73,11 +73,7 @@ const ProdcutDetails = ({ match }) => {
     (state) => state.newReviews
   );
   const itemPresent = cartItems.find((item) => item.product === product._id);
-  console.log(
-    cartItems.filter((item) => item.product === product._id),
-    "items",
-    itemPresent
-  );
+  
 
   const [productCount, setProductCount] = React.useState(1);
   const [rating, setRating] = useState(1);

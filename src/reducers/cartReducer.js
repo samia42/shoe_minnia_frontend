@@ -29,6 +29,7 @@ export const cartReducer = (
         };
       }
     case REMOVE_ITEM_FROM_CART:
+      console.log("is it running");
       return {
         ...state,
         cartItems: state.cartItems.filter((i) => i.product !== action.payload),
