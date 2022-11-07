@@ -26,6 +26,7 @@ import AdminDashboard from "./component/admin/AdminDashboard.jsx";
 import AdminProducts from "./component/admin/AdminProducts.js";
 import OrderList from "./component/admin/OrderList";
 import ProcessOrder from "./component/admin/ProcessOrder";
+import NewProduct from "./component/admin/NewProduct";
 
 function App() {
   useEffect(() => {
@@ -112,6 +113,33 @@ function App() {
             element={
               <ProtectedRoute isAdmin={true}>
                 <ProcessOrder />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            exact
+            path="/admin/dashboard"
+            element={
+              <ProtectedRoute isAdmin={true}>
+                <AdminDashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            exact
+            path="/admin/products"
+            element={
+              <ProtectedRoute isAdmin={true}>
+                <AdminProducts />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            exact
+            path="/admin/product"
+            element={
+              <ProtectedRoute isAdmin={true}>
+                <NewProduct />
               </ProtectedRoute>
             }
           />

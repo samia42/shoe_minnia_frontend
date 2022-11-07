@@ -10,7 +10,6 @@ import {
   HomeOutlined,
   ListAltOutlined,
   People,
-  Person3Outlined,
   Reviews,
   StoreOutlined,
 } from "@mui/icons-material";
