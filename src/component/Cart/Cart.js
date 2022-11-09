@@ -37,8 +37,6 @@ function Cart(props) {
     dispatch(removeItemFromCart(id));
   };
 
-  console.log(cartItems, "cartItems");
-
   const result = cartItems.reduce(getSum, 0);
   function getSum(total, num) {
     return total + parseInt(num.price);

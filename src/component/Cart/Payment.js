@@ -6,13 +6,14 @@ import { useNavigate } from "react-router-dom";
 import { Input, Button, Container, Box, Typography } from "@mui/material";
 import "./payment.css";
 import axios from "axios";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { clearErrors, createOrder } from "../../actions/orderAction";
 
 function Payment() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const orderInfo = JSON.parse(sessionStorage.getItem("orderInfo"));
+  const payBtn = useRef(null);
 
   const { state } = useLocation();
 
@@ -35,6 +36,7 @@ function Payment() {
 
   const submitHandler = (e) => {
     e.preventDefault();
+    payBtn.current.disabled = true;
 
     try {
       dispatch(createOrder(order));
@@ -91,7 +93,7 @@ function Payment() {
             />
           </div>
 
-          <Button variant="contained" onClick={submitHandler}>
+          <Button variant="contained" onClick={submitHandler} ref={payBtn}>
             Pay
           </Button>
         </div>

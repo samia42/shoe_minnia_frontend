@@ -73,15 +73,11 @@ const ProdcutDetails = ({ match }) => {
     (state) => state.newReviews
   );
   const itemPresent = cartItems.find((item) => item.product === product._id);
-  console.log(
-    cartItems.filter((item) => item.product === product._id),
-    "items",
-    itemPresent
-  );
 
   const [productCount, setProductCount] = React.useState(1);
   const [rating, setRating] = useState(1);
   const [open, setOpen] = useState(false);
+  const [reviewsToShow, setReviewsToShow] = useState(3);
 
   const [comment, setComment] = useState("");
 
@@ -249,9 +245,27 @@ const ProdcutDetails = ({ match }) => {
                 <Grid item sm={10} xs={2}>
                   {product?.reviews?.length ? (
                     <div className="reviews">
-                      {product.reviews.map((reviews) => (
-                        <ProductReviews reviews={reviews} />
-                      ))}
+                      {product.reviews
+                        .slice(0, reviewsToShow)
+                        .map((reviews) => (
+                          <ProductReviews reviews={reviews} />
+                        ))}
+                      <Button
+                        variant="contained"
+                        sx={{
+                          width: "20%",
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItem: "center",
+                        }}
+                        onClick={() => {
+                          reviewsToShow > 3
+                            ? setReviewsToShow(3)
+                            : setReviewsToShow(product.reviews.length);
+                        }}
+                      >
+                        {reviewsToShow > 3 ? "Show Less" : "Show More"}
+                      </Button>
                     </div>
                   ) : null}
                 </Grid>

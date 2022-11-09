@@ -14,7 +14,6 @@ function OrderDetail(props) {
 
   const { loading, error, order } = useSelector((state) => state.orderDetails);
   const dispatch = useDispatch();
-  console.log(order);
   useEffect(() => {
     // if (error)
     // {

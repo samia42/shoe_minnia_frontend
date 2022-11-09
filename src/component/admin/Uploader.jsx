@@ -29,9 +29,10 @@ const Uploader = (props) => {
         p: 4,
       };
   const [previewOpen, setPreviewOpen] = useState(false);
-  const [previewImage, setPreviewImage] = useState('');
-  const [previewTitle, setPreviewTitle] = useState('');
+  const [previewImage, setPreviewImage] = useState("");
+  const [previewTitle, setPreviewTitle] = useState("");
   const [fileList, setFileList] = useState([
+<<<<<<< HEAD
     // {
     //   uid: '-1',
     //   name: 'image.png',
@@ -45,17 +46,32 @@ const Uploader = (props) => {
     //   url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
     // },
     
+=======
+    {
+      uid: "-1",
+      name: "image.png",
+      status: "done",
+      url: "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
+    },
+    {
+      uid: "-2",
+      name: "image.png",
+      status: "done",
+      url: "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
+    },
+>>>>>>> ba72926d2e78f007ffc7d716c2647920eda35110
   ]);
   const handleCancel = () => setPreviewOpen(false);
-  
+
   const handlePreview = async (file) => {
-    console.log(fileList);
     if (!file.url && !file.preview) {
       file.preview = await getBase64(file.originFileObj);
     }
     setPreviewImage(file.url || file.preview);
     setPreviewOpen(true);
-    setPreviewTitle(file.name || file.url.substring(file.url.lastIndexOf('/') + 1));
+    setPreviewTitle(
+      file.name || file.url.substring(file.url.lastIndexOf("/") + 1)
+    );
   };
   const handleChange = (info) => {
     const {file,fileList} = info
@@ -72,6 +88,7 @@ const Uploader = (props) => {
   };
   const uploadButton = (
     <div>
+<<<<<<< HEAD
         <PlusOutlined />
       <div
         style={{
@@ -80,6 +97,18 @@ const Uploader = (props) => {
       >
         Upload
       </div>  
+=======
+      <Button
+        variant="outlined"
+        color="secondary"
+        component="label"
+        required
+        fullWidth
+        autoComplete="file"
+      >
+        Upload Files
+      </Button>
+>>>>>>> ba72926d2e78f007ffc7d716c2647920eda35110
     </div>
   );
   const dummyRequest=({ fileList: newFileList })=>{
@@ -100,6 +129,7 @@ const Uploader = (props) => {
       >
         {fileList.length >= 8 ? null : uploadButton}
       </Upload>
+<<<<<<< HEAD
 
 
         <Modal
@@ -122,6 +152,22 @@ const Uploader = (props) => {
         </Modal>
 
       
+=======
+      <Modal
+        open={previewOpen}
+        title={previewTitle}
+        footer={null}
+        onCancel={handleCancel}
+      >
+        <img
+          alt="example"
+          style={{
+            width: "100%",
+          }}
+          src={previewImage}
+        />
+      </Modal>
+>>>>>>> ba72926d2e78f007ffc7d716c2647920eda35110
     </>
   );
 };
