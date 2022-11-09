@@ -29,8 +29,6 @@ const OrderList = ({ history }) => {
 
   const { DeletedData } = useSelector((state) => state.delete);
 
-  console.log("deleted:", DeletedData);
-
   const deleteOrderHandler = (id) => {
     dispatch(deleteThisOrder(id));
   };

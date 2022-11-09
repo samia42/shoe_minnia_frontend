@@ -27,6 +27,9 @@ import AdminProducts from "./component/admin/AdminProducts.js";
 import OrderList from "./component/admin/OrderList";
 import ProcessOrder from "./component/admin/ProcessOrder";
 import NewProduct from "./component/admin/NewProduct";
+import UsersList from "./component/admin/UsersList";
+import UpdateUser from "./component/admin/UpdateUser";
+import ProductReviews from "./component/admin/ProductReviews";
 
 function App() {
   useEffect(() => {
@@ -76,7 +79,7 @@ function App() {
           <Route exact path="/order/confirm" element={<ConfirmOrder />} />
           <Route exact path="/payment" element={<Payment />} />
           <Route exact path="/success" element={<Success />} />
-          <Route exact path="/order" element={<Order />} />
+          <Route exact path="/orders" element={<Order />} />
           <Route exact path="/order/:id" element={<OrderDetail />} />
 
           {/* </Admin Routes> */}
@@ -140,6 +143,42 @@ function App() {
             element={
               <ProtectedRoute isAdmin={true}>
                 <NewProduct />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            exact
+            path="/admin/users"
+            element={
+              <ProtectedRoute isAdmin={true}>
+                <UsersList />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            exact
+            path="/admin/user/:id"
+            element={
+              <ProtectedRoute isAdmin={true}>
+                <UpdateUser />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            exact
+            path="/admin/reviews"
+            element={
+              <ProtectedRoute isAdmin={true}>
+                <ProductReviews />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            exact
+            path="/admin/reviews/:id"
+            element={
+              <ProtectedRoute isAdmin={true}>
+                <ProductReviews />
               </ProtectedRoute>
             }
           />

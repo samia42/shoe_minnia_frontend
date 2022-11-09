@@ -42,7 +42,6 @@ const ProcessOrder = ({ history, match }) => {
     myForm.set("status", status);
 
     dispatch(updateOrder(params.id, myForm));
-    console.log(isUpdated, " is it running", order);
   };
 
   const dispatch = useDispatch();

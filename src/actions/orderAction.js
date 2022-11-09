@@ -90,7 +90,6 @@ export const updateOrder = (id, order) => async (dispatch) => {
       },
     };
     const { data } = await axios.put(`/api/admin/order/${id}`, order, config);
-
     dispatch({ type: UPDATE_ORDER_SUCCESS, payload: data.success });
   } catch (error) {
     dispatch({
@@ -102,27 +101,15 @@ export const updateOrder = (id, order) => async (dispatch) => {
 
 // Delete Order
 export const deleteOrder = (id) => async (dispatch) => {
-  console.log(id, "iddddd in delete order action");
   try {
     dispatch({
       type: DELETE_ORDER_REQUEST,
     });
     const { data } = await axios.delete(`/api/admin/order/${id}`);
-    console.log(data, "data of delete api result");
     dispatch({ type: DELETE_ORDER_SUCCESS, payload: data.success });
   } catch (error) {
     console.log(error, "error");
   }
-  // try {
-  //   dispatch({ type: DELETE_ORDER_REQUEST });
-  //   const { data } = await axios.delete(`/api/admin/order/${id}`);
-  //   dispatch({ type: DELETE_ORDER_SUCCESS, payload: data.success });
-  // } catch (error) {
-  //   dispatch({
-  //     type: DELETE_ORDER_FAIL,
-  //     payload: error.response.data.message,
-  //   });
-  // }
 };
 export const getOrdersDetails = (id) => async (dispatch) => {
   try {

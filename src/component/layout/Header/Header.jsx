@@ -12,8 +12,9 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-// import AdbIcon from "@mui/icons-material/Adb";
+import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import Logo from "../../logo/Logo";
 // import { Router, Switch, Route } from "react-router-dom";
 // import Products from "../../Product/Products";
@@ -21,12 +22,16 @@ import Logo from "../../logo/Logo";
 import { Divider, ListItemIcon } from "@mui/material";
 import { Logout, PersonAdd, Settings } from "@mui/icons-material";
 import Badge from "@mui/material/Badge";
+import { logout } from "../../../actions/userAction";
+import Toast from "../../Toast/Toast";
 
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 
 const ResponsiveAppBar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const { cartItems } = useSelector((state) => state.cart);
 
@@ -44,6 +49,11 @@ const ResponsiveAppBar = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+  function logoutUser() {
+    dispatch(logout());
+    Toast("Logout Successfully", "success");
+    navigate("/");
+  }
 
   return (
     <AppBar
@@ -187,7 +197,7 @@ const ResponsiveAppBar = () => {
                 </MenuItem>
               </Link>
 
-              <MenuItem>
+              <MenuItem onClick={logoutUser}>
                 <ListItemIcon>
                   <Logout fontSize="small" />
                 </ListItemIcon>

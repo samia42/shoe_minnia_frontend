@@ -1,4 +1,3 @@
-import { act } from "react-dom/test-utils";
 import {
   CREATE_ORDER_FAIL,
   CREATE_ORDER_REQUEST,
@@ -23,34 +22,34 @@ import {
   ORDER_DETAIL_REQUEST,
 } from "../constants/orderConstants";
 
-export const deleteOrder = (state = {}, action) => {
-  switch (action.type) {
-    case DELETE_ORDER_SUCCESS:
-      return {
-        ...state,
-        loading: false,
-        Deleted: action.payload,
-      };
-    default:
-      return state;
-  }
-};
+// export const deleteOrder = (state = {}, action) => {
+//   switch (action.type) {
+//     default:
+//       return state;
+//   }
+// };
 
 export const singleOrderReducer = (state = {}, action) => {
   switch (action.type) {
-    case UPDATE_ORDER_REQUEST:
-    case DELETE_ORDER_REQUEST:
-      console.log("delete order reducer");
-      return {
-        ...state,
-        loading: true,
-      };
-
     case UPDATE_ORDER_SUCCESS:
       return {
         ...state,
         loading: false,
         isUpdated: action.payload,
+      };
+    case UPDATE_ORDER_REQUEST:
+    case DELETE_ORDER_REQUEST:
+      return {
+        isDeleted: false,
+        isUpdated: false,
+        ...state,
+        loading: true,
+      };
+    case DELETE_ORDER_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        isDeleted: action.payload,
       };
 
     case UPDATE_ORDER_FAIL:

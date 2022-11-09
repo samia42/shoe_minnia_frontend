@@ -20,9 +20,9 @@ export default function SideBar() {
     { name: "Home", icon: <HomeOutlined />, to: "/" },
     { name: "Products", icon: <StoreOutlined />, to: "/admin/products" },
     { name: "Create Product", icon: <Create />, to: "/admin/product" },
-    { name: "All Orders", icon: <ListAltOutlined />, to: "/orders" },
-    { name: "Users", icon: <People />, to: "/users" },
-    { name: "Reviews", icon: <Reviews />, to: "/reviews" },
+    { name: "All Orders", icon: <ListAltOutlined />, to: "/admin/orders" },
+    { name: "Users", icon: <People />, to: "/admin/users" },
+    { name: "Reviews", icon: <Reviews />, to: "/admin/reviews" },
   ];
   const list = () => (
     <Box role="presentation" sx={{ width: 250 }}>
