@@ -79,12 +79,13 @@ export const getProductDetails = (_id) => async (dispatch) => {
 export const newProduct = (productData) => async (dispatch) => {
   try {
     dispatch({ type: NEW_PRODUCT_REQUEST });
+  
 
     const config = {
-      headers: { "Content-Type": "application/json" },
+      headers: { "Content-Type": "multipart/form-data" },
     };
 
-    const { data } = await axios.put(`/api/admin/product/new`, productData, config);
+    const { data } = await axios.post(`/api/admin/products/new`, productData, config);
 
     dispatch({
       type: NEW_PRODUCT_SUCCESS,

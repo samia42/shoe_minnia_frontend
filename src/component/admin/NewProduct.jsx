@@ -11,19 +11,19 @@ import { NEW_PRODUCT_RESET } from '../../constants/productConstants';
 import SideBar from './SideBar'
 import Uploader from './Uploader';
 
-const NewProduct = () => {
+const NewProduct = (props) => {
     const theme = createTheme();
     const dispatch = useDispatch();
     const navigate = useNavigate()
 //   const {user} = useSelector(state=>state.user)
     const {loading,error,success} = useSelector(state=>state.newProduct);
+    const {images} = useSelector(state=>state.productImages)
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
     const [price, setPrice] = useState(0);
     const [stock, setStock] = useState(0);
     const [category, setCategory] = useState('');
-    const [images, setImages] = useState([]);
-    const [imagesPreview, setImagesPreview] = useState([]);
+    // const [images, setImages] = useState([]);
     const options=[
     {id:1,title:"shoes"},
     {id:2,title:"sneakers"},
@@ -37,7 +37,6 @@ const NewProduct = () => {
 
 useEffect(() => {
   if (error) {
-    alert.error(error);
     dispatch(clearErrors());
   }
 
@@ -52,43 +51,23 @@ const createProductSubmit = (e) => {
   e.preventDefault();
 
   const myForm = new FormData();
-
-  myForm.set("name", name);
-  myForm.set("price", price);
-  myForm.set("description", description);
-  myForm.set("category", category);
-  myForm.set("Stock", stock);
-
+  myForm.append("name", name);
+  myForm.append("price", price);
+  myForm.append("description", description);
+  myForm.append("category", category);
+  myForm.append("stock", stock);
+  // myForm.append("product-image", images.imageFile.file.originFileObj);
+  console.log(images)
   images.forEach((image) => {
-    myForm.append("images", image);
+    myForm.append(`image`, image.originFileObj);
   });
+
   dispatch(newProduct(myForm));
-};
-
-const createProductImagesChange = (e) => {
-  const files = Array.from(e.target.files);
-
-  setImages([]);
-  setImagesPreview([]);
-
-  files.forEach((file) => {
-    const reader = new FileReader();
-    console.log(file)
-
-
-    reader.onload = () => {
-      if (reader.readyState === 2) {
-        
-        setImagesPreview((old) => [...old, reader.result]);
-        setImages((old) => [...old, reader.result]);
-      }
-    };
-
-    reader.readAsDataURL(file);
-  });
 
 
 };
+
+
 
 
 
@@ -180,7 +159,7 @@ const createProductImagesChange = (e) => {
                             />
                           </Grid>
                           <Grid item xs={12}>
-                            <Uploader/>
+                            <Uploader />
                           </Grid>
                          
                           

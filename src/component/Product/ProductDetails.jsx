@@ -140,8 +140,8 @@ const ProdcutDetails = ({ match }) => {
                       product.images.map((item, i) => (
                         <Img
                           alt={`${i} Slide`}
-                          src={item.url}
-                          key={item.url}
+                          src={item.path}
+                          key={item.path}
                           className="img"
                         />
                       ))}

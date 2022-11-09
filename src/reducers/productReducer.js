@@ -9,6 +9,7 @@ import {
   ADMIN_PRODUCT_SUCCESS,
   ADMIN_PRODUCT_FAIL,
   NEW_PRODUCT_REQUEST,
+  PRODUCT_IMAGES_REQUEST,
   NEW_PRODUCT_SUCCESS,
   NEW_PRODUCT_RESET,
   NEW_PRODUCT_FAIL,
@@ -83,6 +84,17 @@ export const productDetailsReducer = (state = { product: {} }, action) => {
       return state;
   }
 };
+
+export const productImagesReducer = (state ={ images:[]},action)=>{
+  switch (action.type) {
+  case PRODUCT_IMAGES_REQUEST:
+    return{
+      images:action.payload
+    }
+  default:
+    return state;
+  }
+}
 
 //Create Product 
 export const newProductReducer = (state = {product:{}}, action) => {

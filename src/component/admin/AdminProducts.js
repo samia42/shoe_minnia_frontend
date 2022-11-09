@@ -30,7 +30,6 @@ const AdminProducts = () => {
 
   useEffect(() => {
     if (error) {
-      alert.error(error);
       dispatch(clearErrors());
     }
 
@@ -44,8 +43,8 @@ const AdminProducts = () => {
     //   navigate("/admin/dashboard");
     // dispatch({ type: DELETE_PRODUCT_RESET });
     // }
-
     dispatch(getAdminProducts());
+    console.log(products)
   }, [dispatch, error]);
 
   const columns = [
