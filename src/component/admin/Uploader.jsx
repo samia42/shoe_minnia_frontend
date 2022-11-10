@@ -13,10 +13,9 @@ const getBase64 = (file) =>
     reader.onerror = (error) => reject(error);
   });
 
-const Uploader = (props) => {
+const Uploader = () => {
   const dispatch = useDispatch();
 
-  // const {setImages,images}= props;
     const style = {
         position: 'absolute',
         top: '50%',
@@ -31,23 +30,8 @@ const Uploader = (props) => {
   const [previewOpen, setPreviewOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState("");
   const [previewTitle, setPreviewTitle] = useState("");
-  const [fileList, setFileList] = useState([
-    // {
-    //   uid: '-1',
-    //   name: 'image.png',
-    //   status: 'done',
-    //   url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-    // },
-    // {
-    //   uid: '-2',
-    //   name: 'image.png',
-    //   status: 'done',
-    //   url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-    // },
-    
-  ]);
+  const [fileList, setFileList] = useState([]);
   const handleCancel = () => setPreviewOpen(false);
-
   const handlePreview = async (file) => {
     if (!file.url && !file.preview) {
       file.preview = await getBase64(file.originFileObj);
@@ -68,8 +52,6 @@ const Uploader = (props) => {
       type: PRODUCT_IMAGES_REQUEST,
       payload: fileList,
     });
-    // setImages(fileList)
-
   };
   const uploadButton = (
     <div>
@@ -85,14 +67,10 @@ const Uploader = (props) => {
   );
   const dummyRequest=({ fileList: newFileList })=>{
     console.log("dummyRequest")
-    // setImages(newFileList)
-    // setImages(newFileList)
-
   }
   return (
     <>
       <Upload
-        // action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
         listType="picture-card"
         fileList={fileList}
         onPreview={handlePreview}
@@ -107,6 +85,7 @@ const Uploader = (props) => {
             open={previewOpen}
             onClose={handleCancel}
             footer={null}
+            title={previewTitle}
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
             >

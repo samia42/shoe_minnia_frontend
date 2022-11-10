@@ -3,7 +3,7 @@ import {
   REMOVE_ITEM_FROM_CART,
   SAVE_SHIPPING_INFO,
 } from "../constants/cartConstant";
-import { ALL_PRODUCT_SUCCESS } from "../constants/productConstants";
+// import { ALL_PRODUCT_SUCCESS } from "../constants/productConstants";
 import axios from "axios";
 
 export const addItemsToCart = (_id, quantity) => async (dispatch, getstate) => {
@@ -16,7 +16,7 @@ export const addItemsToCart = (_id, quantity) => async (dispatch, getstate) => {
         product: data.product._id,
         name: data.product.name,
         price: data.product.price,
-        image: data.product.images[0].url,
+        image: data.product.images[0].path,
         stock: data.product.stock,
         quantity,
       },

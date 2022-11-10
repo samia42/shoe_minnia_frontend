@@ -2,7 +2,7 @@
   padding: 5vmax;
 }
 .cartHeader {
-  background-color: tomato;
+  background-color: #9767bf;
   width: 90%;
   box-sizing: border-box;
   color: white;
@@ -19,12 +19,13 @@
 .cartItemCard {
   display: flex;
   padding: 1vmax;
-  height: 8vmax;
+  height: 10vmax;
   align-items: flex-start;
   box-sizing: border-box;
 }
 .cartItemCard > img {
   width: 5vmax;
+  height: auto;
 }
 .cartItemCard > div {
   display: flex;
@@ -32,7 +33,7 @@
   flex-direction: column;
 }
 .cartItemCard > div > p {
-  color: red;
+  color: #9767bf;
 }
 .cartContainer {
   width: 90%;
@@ -76,7 +77,7 @@
   grid-template-columns: 2fr 1.2fr;
 }
 .cartGrossProfitBox {
-  border-top: 3px solid tomato;
+  border-top: 3px solid #9767bf;
   margin: 1vmax 4vmax;
   box-sizing: border-box;
   display: flex;
@@ -88,7 +89,7 @@
   justify-content: flex-end;
 }
 .checkOutButton > button {
-  background-color: tomato;
+  background-color: #9767bf;
   color: white;
   border: none;
   padding: 0.8vmax 4vmax;

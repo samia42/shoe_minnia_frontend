@@ -30,16 +30,26 @@ import NewProduct from "./component/admin/NewProduct";
 import UsersList from "./component/admin/UsersList";
 import UpdateUser from "./component/admin/UpdateUser";
 import ProductReviews from "./component/admin/ProductReviews";
+import Header from "../src/component/layout/Header/Header.jsx";
+import Footer from "./component/layout/Footer/Footer";
+import { useLocation } from "react-router-dom";
+
 
 function App() {
+  const location = useLocation()
   useEffect(() => {
     Store.dispatch(loadUser());
   }, []);
   const dispatch = useDispatch();
+  console.log(location.pathname.includes('admin'),'//////////')
   const { isAuthenticated, user } = useSelector((state) => state.user);
   return (
     <>
-      <BrowserRouter>
+      
+
+      {location.pathname.includes('admin') ? null : <Header />}
+      
+
         {isAuthenticated && <UserOptions user={user} />}
         <Routes>
           <Route exact path="/" element={<Home />} />
@@ -183,7 +193,9 @@ function App() {
             }
           />
         </Routes>
-      </BrowserRouter>
+        {location.pathname.includes('admin') ? null : <Footer />}
+      
+    
       <ContainerToast />
     </>
   );

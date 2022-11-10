@@ -13,6 +13,7 @@ import { getAdminProducts } from "../../actions/productAction";
 const AdminDashboard = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const { products } = useSelector((state) => state.products);
   const { orders } = useSelector((state) => state.allOrders);
   let outOfStock = 0;

@@ -42,7 +42,6 @@ const Login = ({ history }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
     dispatch(login(loginEmail, loginPassword));
     navigate("/");
   };
@@ -75,8 +74,8 @@ const Login = ({ history }) => {
                       pr: 2,
                       mb: 3,
                       backgroundColor: "transparent",
-                      width: "70%",
-                      height: "50%",
+                      width:"150px",
+                      height:"auto"
                     }}
                   >
                     <div>

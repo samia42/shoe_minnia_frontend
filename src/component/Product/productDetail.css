@@ -13,17 +13,15 @@
   text-align: center;
   width: 20px;
 }
-.no-of-items button {
-  background-color: darkslategrey;
+/* .no-of-items .couter button {
+  max-height: min-content;
+  max-width: min-content;
+  background-color: #bb84e8;
+  font-size: large;
   cursor: pointer;
-}
-.add-to-cart {
-  margin-left: 30px;
-  height: 30px;
-  border-radius: 30px;
-  background-color: coral !important;
-  cursor: pointer;
-}
+  
+
+} */
 .status {
   padding: 10px;
   width: 50%;

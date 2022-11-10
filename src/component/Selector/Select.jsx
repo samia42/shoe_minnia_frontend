@@ -47,7 +47,7 @@ export default function Select(props) {
         {props.required ? null : <MenuItem value="val">None</MenuItem>}
         {props.children ? props.children : null}
         {options.map((item) => (
-          <MenuItem key={item.id} value={item.value}>
+          <MenuItem key={item.id} value={item.title}>
             {item.title}
           </MenuItem>
         ))}

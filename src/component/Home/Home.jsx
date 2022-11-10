@@ -33,7 +33,6 @@ const Home = () => {
       ) : (
         <Fragment>
           <div className="mainContainer">
-            <Header />
             {isAuthenticated && <UserOptions user={user}/>}
 
             <div className="banner">
@@ -54,7 +53,7 @@ const Home = () => {
                 </div>
               ))}
           </div>
-          <Footer />
+      
         </Fragment>
       )}
     </>

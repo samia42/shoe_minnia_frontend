@@ -6,13 +6,16 @@ import { Link } from 'react-router-dom';
 const useStyles = makeStyles((theme) =>
   createStyles({
     footerStyles: {
+        position: 'absolute',
+        right: 0,
+        bottom: 0,
+        left: 0,
+        marginBottom: '0px',
         color: 'white',
-        // background-image: linear-gradient(to right, #35185a, #bb84e8),
         background: '#bb84e8',
       },
       linkContainer: {
         display: 'flex',
-      
       },
       links: {
         display: 'flex',

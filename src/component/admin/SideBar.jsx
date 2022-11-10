@@ -44,6 +44,7 @@ export default function SideBar() {
       <React.Fragment>
         <Drawer
           sx={{
+            
             width: 240,
             flexShrink: 0,
             "& .MuiDrawer-paper": {

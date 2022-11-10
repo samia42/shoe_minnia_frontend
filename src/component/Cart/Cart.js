@@ -7,6 +7,7 @@ import RemoveShoppingCartIcon from "@mui/icons-material/RemoveShoppingCart";
 import { useLocation } from "react-router-dom";
 
 import { Link, useNavigate } from "react-router-dom";
+import { Button, Input, Typography } from "@mui/material";
 // import { Toast } from "react-toastify/dist/components";
 
 function Cart(props) {
@@ -14,22 +15,24 @@ function Cart(props) {
   const location = useLocation();
   const navigate = useNavigate();
   const { cartItems } = useSelector((state) => state.cart);
+  console.log(cartItems)
+  
 
-  const increaseQuantity = (id, quantity, stock) => {
-    const newQty = quantity + 1;
-    if (stock <= quantity) {
-      return;
-    }
-    dispatch(addItemsToCart(id, newQty));
-  };
+  // const increaseQuantity = (id, quantity, stock) => {
+  //   const newQty = quantity + 1;
+  //   if (stock <= quantity) {
+  //     return;
+  //   }
+  //   dispatch(addItemsToCart(id, newQty));
+  // };
 
-  const decreaseQuantity = (id, quantity) => {
-    const newQty = quantity - 1;
-    if (1 >= quantity) {
-      return;
-    }
-    dispatch(addItemsToCart(id, newQty));
-  };
+  // const decreaseQuantity = (id, quantity) => {
+  //   const newQty = quantity - 1;
+  //   if (1 >= quantity) {
+  //     return;
+  //   }
+  //   dispatch(addItemsToCart(id, newQty));
+  // };
 
   const redirect = location.search ? location.search.split("=")[1] : "";
 
@@ -37,10 +40,10 @@ function Cart(props) {
     dispatch(removeItemFromCart(id));
   };
 
-  const result = cartItems.reduce(getSum, 0);
-  function getSum(total, num) {
-    return total + parseInt(num.price);
-  }
+  // const result = cartItems.reduce(getSum, 0);
+  // function getSum(total, num) {
+  //   return total + parseInt(num.price);
+  // }
 
   const cartHandler = () => {
     navigate("/login?redirect=shipping");
@@ -66,56 +69,41 @@ function Cart(props) {
         <>
           <div className="cartPage">
             <div className="cartHeader">
-              <p>Product</p>
-              <p>quantity</p>
-              <p>Sub Total</p>
+              <Typography>Product</Typography>
+              <Typography>Quantity</Typography>
+              <Typography>Sub Total</Typography>
             </div>
             {cartItems &&
               cartItems.map((item) => (
                 <div className="cartContainer" key={item.product}>
-                  <CartItem item={item} deleteCartItems={deleteCartItem} />
+                  <CartItem item={item}  deleteCartItems={deleteCartItem} />
                   <div className="cartInput">
-                    <button
-                      onClick={() =>
-                        decreaseQuantity(item.product, item.quantity)
-                      }
-                    >
-                      -
-                    </button>
-                    <input value={item?.quantity} defaultValue="23" readOnly />
-                    <button
-                      onClick={() =>
-                        increaseQuantity(
-                          item.product,
-                          item.quantity,
-                          item.stock
-                        )
-                      }
-                    >
-                      +{" "}
-                    </button>
+                    {console.log(item.quantity)}
+                    <Typography variant="h6" >
+                      {item?.quantity}
+                    </Typography>
                   </div>
-                  <p className="cartSubtotal">{`RS ${
-                    item.price * item.quantity
-                  }`}</p>
+                  <Typography className="cartSubtotal">
+                    {`RS: ${item.price * item.quantity}`}
+                  </Typography>
                 </div>
               ))}
 
             <div className="cartGrossProfit">
               <div></div>
               <div className="cartGrossProfitBox">
-                <p>Gross Total</p>
-                <p>
+                <Typography>Gross Total</Typography>
+                <Typography>
                   {`Rs:${cartItems.reduce(
                     (acc, item) => acc + item.quantity * item.price,
                     0
                   )}
                   `}
-                </p>
+                </Typography>
               </div>
               <div></div>
               <div className="checkOutButton">
-                <button onClick={cartHandler}>check out</button>
+                <Button onClick={cartHandler}>check out</Button>
               </div>
             </div>
           </div>

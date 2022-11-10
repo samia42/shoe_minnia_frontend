@@ -8,18 +8,20 @@ import {
   Rating,
   Card,
   Divider,
-  Box,
   Dialog,
   DialogActions,
   DialogContent,
   DialogTitle,
   Button,
+  Input,
+  IconButton,
 } from "@mui/material";
+import RemoveIcon from '@mui/icons-material/Remove';
+import AddIcon from '@mui/icons-material/Add';
 import Toast from "../Toast/Toast";
 import { useSelector, useDispatch } from "react-redux";
 import Carousel from "react-material-ui-carousel";
 import {
-  clearErrors,
   getProductDetails,
   newReview,
 } from "../../actions/productAction";
@@ -33,14 +35,7 @@ import Header from "../layout/Header/Header";
 import { useState } from "react";
 import { NEW_REVIEW_RESET } from "../../constants/productConstants";
 
-const options = {
-  edit: false,
-  color: "rgba(20,20,20,0.1)",
-  activeColor: "tomato",
-  value: 2.5,
-  isHalf: true,
-  size: window.innerWidth < 600 ? 13 : 25,
-};
+
 const Img = styled("img")({
   margin: "none",
   display: "block",
@@ -58,28 +53,28 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
-const ProdcutDetails = ({ match }) => {
+const ProdcutDetails = () => {
   const params = useParams();
-
   const dispatch = useDispatch();
-
-  const { product, loading, error } = useSelector(
-    (state) => state.productDetails
-  );
+  const { product, loading } = useSelector((state) => state.productDetails);
 
   const { cartItems } = useSelector((state) => state.cart);
-
-  const { success, error: reviewError } = useSelector(
-    (state) => state.newReviews
-  );
+  const { success } = useSelector((state) => state.newReviews );
   const itemPresent = cartItems.find((item) => item.product === product._id);
-
   const [productCount, setProductCount] = React.useState(1);
   const [rating, setRating] = useState(1);
   const [open, setOpen] = useState(false);
   const [reviewsToShow, setReviewsToShow] = useState(3);
-
   const [comment, setComment] = useState("");
+  useEffect(() => {
+    dispatch(getProductDetails(params.id));
+    dispatch({ type: NEW_REVIEW_RESET });
+
+    if (success) {
+      Toast("Review Submitted Successfully", "Success");
+      dispatch({ type: NEW_REVIEW_RESET });
+    }
+  }, [dispatch, params, success]);
 
   const handleMinuse = () => {
     if (productCount <= 1) return;
@@ -111,22 +106,14 @@ const ProdcutDetails = ({ match }) => {
     setOpen(false);
   };
 
-  useEffect(() => {
-    dispatch(getProductDetails(params.id));
-    dispatch({ type: NEW_REVIEW_RESET });
-
-    if (success) {
-      Toast("Review Submitted Successfully", "Success");
-      dispatch({ type: NEW_REVIEW_RESET });
-    }
-  }, [dispatch, params, success]);
+ 
   return (
     <>
       {loading ? (
         <Loader />
       ) : (
         <>
-          <Header />
+        
           <Container sx={{ marginTop: "50px" }}>
             <Grid container spacing={2}>
               <Grid item sm={4} xs={12}>
@@ -146,7 +133,7 @@ const ProdcutDetails = ({ match }) => {
               </Grid>
               <Grid item sm={6} xs={12}>
                 <Item>
-                  <Typography variant="h3" className="name">
+                  <Typography variant="h3" >
                     {product?.name}
                   </Typography>
                   <Divider />
@@ -161,39 +148,52 @@ const ProdcutDetails = ({ match }) => {
                   <Divider />
 
                   <div className="price">
-                    <Typography>
+                    <Typography variant="h6">
                       RS:<span>{product?.price}</span>
                     </Typography>
                   </div>
                   <div className="no-of-items">
-                    <button onClick={handleMinuse}>-</button>
-                    <input value={productCount} readOnly={true} />
-                    <button onClick={handlePluse}>+</button>
-
-                    <button
+                    <div className="couter">
+                    <IconButton color="secondary" aria-label="upload picture" component="label" >
+                      <RemoveIcon onClick={handleMinuse}/>
+                    </IconButton>
+                    <Input value={productCount} readOnly={true} />
+                    <IconButton color="secondary" aria-label="upload picture" component="label">
+                      <AddIcon  onClick={handlePluse}/>
+                    </IconButton>
+                    {/* <Button sx={{color:"#35185a", backgroundColor:"#bb84e8"}} onClick={handleMinuse}>-</Button>
+                    
+                    <Button  sx={{color:"#35185a", backgroundColor:"#bb84e8"}} >+</Button> */}
+                    </div>
+                    <div>
+                    <Button
+                    sx={{ml:2}}
+                    variant="contained"
+                    color="secondary"
                       // disabled={product.stock <= productCount}
                       disabled={
                         itemPresent?.stock <= productCount &&
                         product?.stock <= productCount
                       }
-                      className="add-to-cart  "
                       onClick={addToCartHandler}
                     >
                       Add to Cart
-                    </button>
+                    </Button>
+                    </div>
+                   
                   </div>
                   <div className="status">
-                    <p>
+                    <Typography>
                       Status:
                       <b
                         style={{
-                          color: product?.stock < 1 ? "red" : "green",
+                          color: product?.stock < 1 ? "red" : "#bb84e8",
                           marginLeft: "10px",
                         }}
                       >
                         {product?.stock < 1 ? "OutOfStock" : "InStock"}
                       </b>
-                    </p>
+                    </Typography>
                   </div>
 
                   <div className="des">
@@ -202,12 +202,14 @@ const ProdcutDetails = ({ match }) => {
                     </Typography>
                     <div>{product?.description}</div>
                   </div>
-                  <button
+                  <Button
+                  variant="contained"
+                  color="secondary"
+                  sx={{mt:2}}
                     onClick={submitReviewtoggle}
-                    className="submit-button"
                   >
                     Submit Review
-                  </button>
+                  </Button>
                 </Item>
               </Grid>
             </Grid>

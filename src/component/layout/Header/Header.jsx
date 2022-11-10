@@ -24,15 +24,18 @@ import { Logout, PersonAdd, Settings } from "@mui/icons-material";
 import Badge from "@mui/material/Badge";
 import { logout } from "../../../actions/userAction";
 import Toast from "../../Toast/Toast";
+import LoginIcon from '@mui/icons-material/Login';
+import { useLocation } from "react-router-dom";
 
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 
 const ResponsiveAppBar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const location=useLocation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+console.log(location,'location')
   const { cartItems } = useSelector((state) => state.cart);
 
   const handleOpenNavMenu = (event) => {
@@ -57,8 +60,8 @@ const ResponsiveAppBar = () => {
 
   return (
     <AppBar
-      color="transparent"
-      sx={{ backgroundColor: "red" }}
+  
+      sx={{ backgroundImage: 'linear-gradient(to right, #35185a, #bb84e8)' }}
       position="static"
       elevation={0}
     >
@@ -122,16 +125,22 @@ const ResponsiveAppBar = () => {
           >
             <div style={{ marginRight: "20px" }}>
               <Link to="/cart">
-                <Badge badgeContent={cartItems.length} color="primary">
-                  <ShoppingCartIcon />
-                </Badge>
+                {location.pathname==='/login'?" ":
+                 <Badge badgeContent={location.pathname==='/login'?" ":cartItems.length} color="secondary">
+                 <ShoppingCartIcon sx={{ color:"white" }} />
+               </Badge>
+                }
+               
               </Link>
             </div>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleClick} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-              </IconButton>
-            </Tooltip>
+            <Button>
+            <Link to="/login" style={{ color: "white" }}>
+                Login
+            </Link>
+            </Button>
+            
+              
+          
             <Menu
               anchorEl={anchorEl}
               id="account-menu"

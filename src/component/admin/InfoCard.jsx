@@ -9,7 +9,6 @@ import { Box } from "@mui/system";
 import React from "react";
 
 const InfoCard = (props) => {
-  console.log(props);
   return (
     <>
       <Box
