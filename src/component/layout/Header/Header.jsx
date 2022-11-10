@@ -26,6 +26,7 @@ import { logout } from "../../../actions/userAction";
 import Toast from "../../Toast/Toast";
 
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import { useEffect } from "react";
 
 const ResponsiveAppBar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -58,7 +59,7 @@ const ResponsiveAppBar = () => {
   return (
     <AppBar
       color="transparent"
-      sx={{ backgroundColor: "red" }}
+      sx={{ backgroundColor: "#35185a" }}
       position="static"
       elevation={0}
     >

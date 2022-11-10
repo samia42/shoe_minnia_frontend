@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import ReactStars from "react-rating-stars-component";
+import { Rating } from "@mui/material";
 
 const options = {
   edit: false,
@@ -11,14 +11,19 @@ const options = {
   size: window.innerWidth < 600 ? 13 : 25,
 };
 const ProductCard = ({ product }) => {
+  console.log(product, "product");
   return (
     <>
-      <Link sx={{color:"black"}} className="productCard" to={`/${product?._id}`}>
+      <Link
+        sx={{ color: "black" }}
+        className="productCard"
+        to={`/${product?._id}`}
+      >
         <img src={product?.images[0]?.path} alt={product?.name} />
         <p>{product?.name}</p>
         <div>
-          <ReactStars {...options} />
-          <span> (25 Reviews) </span>
+          <Rating value={product.ratings} />
+          <span> {product?.reviews?.length} </span>
         </div>
         <span>{product?.price}</span>
       </Link>

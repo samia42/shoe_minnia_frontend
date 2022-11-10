@@ -63,7 +63,8 @@
   text-align: start;
 }
 .reviews {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   flex-direction: column;
   margin: 20px;
   overflow: auto;
@@ -74,6 +75,7 @@
 }
 .review-card {
   margin-top: 30px;
+  width: 23vw;
   background-color: aliceblue;
   padding: 10px;
   display: flex;
@@ -92,6 +94,8 @@
 }
 .all-products {
   display: flex;
+
+  flex-wrap: wrap;
 }
 .pagination {
   display: flex;

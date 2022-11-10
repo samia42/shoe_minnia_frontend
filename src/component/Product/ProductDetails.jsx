@@ -67,6 +67,8 @@ const ProdcutDetails = ({ match }) => {
     (state) => state.productDetails
   );
 
+  const { user } = useSelector((state) => state.user);
+  console.log(user);
   const { cartItems } = useSelector((state) => state.cart);
 
   const { success, error: reviewError } = useSelector(
@@ -93,9 +95,18 @@ const ProdcutDetails = ({ match }) => {
   const submitReviewtoggle = () => {
     open ? setOpen(false) : setOpen(true);
   };
-
+  const cart = cartItems.filter((item) => item.product === product._id);
+  console.log(cart, "0", product.stock <= cart[0]?.quantity);
+  let productCounts = 0;
   const addToCartHandler = () => {
-    dispatch(addItemsToCart(params.id, productCount));
+    dispatch(
+      addItemsToCart(
+        params.id,
+        (productCounts = cart[0]?.quantity
+          ? cart[0].quantity + productCount
+          : productCount)
+      )
+    );
     Toast("Item Added to Cart Successfully", "Success");
   };
 
@@ -170,28 +181,41 @@ const ProdcutDetails = ({ match }) => {
                     <input value={productCount} readOnly={true} />
                     <button onClick={handlePluse}>+</button>
 
-                    <button
+                    <Button
                       // disabled={product.stock <= productCount}
                       disabled={
-                        itemPresent?.stock <= productCount &&
-                        product?.stock <= productCount
+                        (itemPresent?.stock <= productCount &&
+                          product?.stock <= productCount) ||
+                        product.stock <= cart[0]?.quantity
                       }
                       className="add-to-cart  "
                       onClick={addToCartHandler}
                     >
-                      Add to Cart
-                    </button>
+                      {product?.stock <= cart[0]?.quantity
+                        ? "No Items"
+                        : "Add To Cart"}
+                      {/* Add to Cart */}
+                    </Button>
                   </div>
                   <div className="status">
                     <p>
                       Status:
                       <b
                         style={{
-                          color: product?.stock < 1 ? "red" : "green",
+                          color:
+                            product?.stock <= cart[0]?.quantity
+                              ? "red"
+                              : product?.stock < 1
+                              ? "red"
+                              : "green",
                           marginLeft: "10px",
                         }}
                       >
-                        {product?.stock < 1 ? "OutOfStock" : "InStock"}
+                        {product?.stock <= cart[0]?.quantity
+                          ? "Out of Stock"
+                          : product?.stock < 1
+                          ? "OutOfStock"
+                          : "InStock"}
                       </b>
                     </p>
                   </div>
@@ -242,7 +266,14 @@ const ProdcutDetails = ({ match }) => {
                     </DialogActions>
                   </DialogContent>
                 </Dialog>
-                <Grid item sm={10} xs={2}>
+                <Grid
+                  item
+                  sm={12}
+                  xs={2}
+                  lg={12}
+                  color="secondary"
+                  className="review-grid"
+                >
                   {product?.reviews?.length ? (
                     <div className="reviews">
                       {product.reviews
@@ -250,22 +281,25 @@ const ProdcutDetails = ({ match }) => {
                         .map((reviews) => (
                           <ProductReviews reviews={reviews} />
                         ))}
-                      <Button
-                        variant="contained"
-                        sx={{
-                          width: "20%",
-                          display: "flex",
-                          justifyContent: "center",
-                          alignItem: "center",
-                        }}
-                        onClick={() => {
-                          reviewsToShow > 3
-                            ? setReviewsToShow(3)
-                            : setReviewsToShow(product.reviews.length);
-                        }}
-                      >
-                        {reviewsToShow > 3 ? "Show Less" : "Show More"}
-                      </Button>
+                      {product.reviews.length > 3 ? (
+                        <Button
+                          variant="contained"
+                          sx={{
+                            width: "20%",
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItem: "center",
+                            height: "50px",
+                          }}
+                          onClick={() => {
+                            reviewsToShow > 3
+                              ? setReviewsToShow(3)
+                              : setReviewsToShow(product.reviews.length);
+                          }}
+                        >
+                          {reviewsToShow > 3 ? "Show Less" : "Show More"}
+                        </Button>
+                      ) : null}
                     </div>
                   ) : null}
                 </Grid>
