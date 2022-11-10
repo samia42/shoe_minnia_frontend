@@ -28,6 +28,7 @@ import LoginIcon from '@mui/icons-material/Login';
 import { useLocation } from "react-router-dom";
 
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import { useEffect } from "react";
 
 const ResponsiveAppBar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
