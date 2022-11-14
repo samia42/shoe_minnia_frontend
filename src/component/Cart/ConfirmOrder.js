@@ -1,4 +1,4 @@
-import { Typography, Box, Grid, Paper } from "@mui/material";
+import { Typography, Box, Grid, Paper, Button } from "@mui/material";
 import React from "react";
 import { useSelector } from "react-redux";
 import CheckoutSteps from "./checkoutSteps";
@@ -103,13 +103,15 @@ function ConfirmOrder({ navigation }) {
                   <span>RS:{Math.round(tax)}</span>
                 </div>
               </div>
-              <div className="orderSummaryTotal">
+              <div className="">
                 <p>
                   <b>Total</b>
                   <span>RS :{totalPrice}</span>
                 </p>
 
-                <button onClick={PaymentHandler}>Proceed To Payment</button>
+                <Button sx={{}} onClick={PaymentHandler}>
+                  Proceed To Payment
+                </Button>
               </div>
             </div>
           </Grid>
