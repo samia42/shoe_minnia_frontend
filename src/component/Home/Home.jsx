@@ -10,11 +10,9 @@ import Loader from "../Loader/Loader";
 import Toast from "../Toast/Toast";
 import UserOptions from "../layout/Header/UserOptions";
 
-
-
 const Home = () => {
   const dispatch = useDispatch();
-  const {isAuthenticated,user} = useSelector(state=>state.user)
+  const { isAuthenticated, user } = useSelector((state) => state.user);
   const { loading, error, products, productsCount } = useSelector(
     (state) => state.products
   );
@@ -26,6 +24,9 @@ const Home = () => {
     dispatch(getProduct());
   }, [dispatch, error]);
 
+  // eslint-disable-next-line no-restricted-globals
+  window.addEventListener("contextmenu", (e) => e.preventDefault());
+
   return (
     <>
       {loading ? (
@@ -33,7 +34,7 @@ const Home = () => {
       ) : (
         <Fragment>
           <div className="mainContainer">
-            {isAuthenticated && <UserOptions user={user}/>}
+            {isAuthenticated && <UserOptions user={user} />}
 
             <div className="banner">
               <p>Welcome to Shoe Minnia</p>
@@ -53,7 +54,7 @@ const Home = () => {
                 </div>
               ))}
           </div>
-      
+          <Footer />
         </Fragment>
       )}
     </>

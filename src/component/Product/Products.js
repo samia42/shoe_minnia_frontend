@@ -28,7 +28,6 @@ function Products(props) {
   }, [dispatch, page]);
   return (
     <>
-      <Header />
       <Container>
         {/* <Typography>Categories</Typography> */}
         {/* <ul>
