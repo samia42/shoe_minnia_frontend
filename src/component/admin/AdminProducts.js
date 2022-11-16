@@ -72,31 +72,31 @@ const AdminProducts = () => {
       flex: 0.5,
     },
 
-    {
-      field: "actions",
-      flex: 0.3,
-      headerName: "Actions",
-      minWidth: 150,
-      type: "number",
-      sortable: false,
-      renderCell: (params) => {
-        return (
-          <Fragment>
-            <Link to={`/admin/product/${params.getValue(params.id, "id")}`}>
-              <Edit/>
-            </Link>
+    // {
+    //   field: "actions",
+    //   flex: 0.3,
+    //   headerName: "Actions",
+    //   minWidth: 150,
+    //   type: "number",
+    //   sortable: false,
+    //   renderCell: (params) => {
+    //     return (
+    //       <Fragment>
+    //         <Link to={`/admin/product/${params.getValue(params.id, "id")}`}>
+    //           <Edit/>
+    //         </Link>
 
-            <Button
-            //   onClick={() =>
-            //     deleteProductHandler(params.getValue(params.id, "id"))
-            //   }
-            >
-              <Delete />
-            </Button>
-          </Fragment>
-        );
-      },
-    },
+    //         <Button
+    //         //   onClick={() =>
+    //         //     deleteProductHandler(params.getValue(params.id, "id"))
+    //         //   }
+    //         >
+    //           <Delete />
+    //         </Button>
+    //       </Fragment>
+    //     );
+    //   },
+    // },
   ];
 
   const rows = [];

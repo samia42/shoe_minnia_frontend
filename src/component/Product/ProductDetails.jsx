@@ -16,15 +16,12 @@ import {
   Input,
   IconButton,
 } from "@mui/material";
-import RemoveIcon from '@mui/icons-material/Remove';
-import AddIcon from '@mui/icons-material/Add';
+import RemoveIcon from "@mui/icons-material/Remove";
+import AddIcon from "@mui/icons-material/Add";
 import Toast from "../Toast/Toast";
 import { useSelector, useDispatch } from "react-redux";
 import Carousel from "react-material-ui-carousel";
-import {
-  getProductDetails,
-  newReview,
-} from "../../actions/productAction";
+import { getProductDetails, newReview } from "../../actions/productAction";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import ProductReviews from "./ProductReview";
@@ -34,7 +31,6 @@ import { addItemsToCart } from "../../actions/cartAction";
 import Header from "../layout/Header/Header";
 import { useState } from "react";
 import { NEW_REVIEW_RESET } from "../../constants/productConstants";
-
 
 const Img = styled("img")({
   margin: "none",
@@ -61,7 +57,7 @@ const ProdcutDetails = () => {
   const { user } = useSelector((state) => state.user);
   console.log(user);
   const { cartItems } = useSelector((state) => state.cart);
-  const { success } = useSelector((state) => state.newReviews );
+  const { success } = useSelector((state) => state.newReviews);
   const itemPresent = cartItems.find((item) => item.product === product._id);
   const [productCount, setProductCount] = React.useState(1);
   const [rating, setRating] = useState(1);
@@ -117,14 +113,12 @@ const ProdcutDetails = () => {
     setOpen(false);
   };
 
- 
   return (
     <>
       {loading ? (
         <Loader />
       ) : (
         <>
-        
           <Container sx={{ marginTop: "50px" }}>
             <Grid container spacing={2}>
               <Grid item sm={4} xs={12}>
@@ -144,9 +138,7 @@ const ProdcutDetails = () => {
               </Grid>
               <Grid item sm={6} xs={12}>
                 <Item>
-                  <Typography variant="h3" >
-                    {product?.name}
-                  </Typography>
+                  <Typography variant="h3">{product?.name}</Typography>
                   <Divider />
                   <div className="review">
                     <Rating
@@ -165,22 +157,31 @@ const ProdcutDetails = () => {
                   </div>
                   <div className="no-of-items">
                     <div className="couter">
-                    <IconButton color="secondary" aria-label="upload picture" component="label" >
-                      <RemoveIcon onClick={handleMinuse}/>
-                    </IconButton>
-                    <Input value={productCount} readOnly={true} />
-                    <IconButton color="secondary" aria-label="upload picture" component="label">
-                      <AddIcon  onClick={handlePluse}/>
-                    </IconButton>
-                    {/* <Button sx={{color:"#35185a", backgroundColor:"#bb84e8"}} onClick={handleMinuse}>-</Button>
+                      <IconButton
+                        color="secondary"
+                        aria-label="upload picture"
+                        component="label"
+                      >
+                        <RemoveIcon onClick={handleMinuse} />
+                      </IconButton>
+                      <Input value={productCount} readOnly={true} />
+                      <IconButton
+                        color="secondary"
+                        aria-label="upload picture"
+                        component="label"
+                      >
+                        <AddIcon onClick={handlePluse} />
+                      </IconButton>
+                      {/* <Button sx={{color:"#35185a", backgroundColor:"#bb84e8"}} onClick={handleMinuse}>-</Button>
                     
                     <Button  sx={{color:"#35185a", backgroundColor:"#bb84e8"}} >+</Button> */}
                     </div>
-                    <div>
+                  </div>
+                  <div>
                     <Button
-                    sx={{ml:2}}
-                    variant="contained"
-                    color="secondary"
+                      sx={{ ml: 2 }}
+                      variant="contained"
+                      color="secondary"
                       // disabled={product.stock <= productCount}
                       disabled={
                         (itemPresent?.stock <= productCount &&
@@ -225,9 +226,9 @@ const ProdcutDetails = () => {
                     <div>{product?.description}</div>
                   </div>
                   <Button
-                  variant="contained"
-                  color="secondary"
-                  sx={{mt:2}}
+                    variant="contained"
+                    color="secondary"
+                    sx={{ mt: 2 }}
                     onClick={submitReviewtoggle}
                   >
                     Submit Review
