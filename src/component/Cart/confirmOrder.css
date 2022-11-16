@@ -62,12 +62,15 @@
   width: 100%;
   padding: 0.3vmax;
   border-radius: 2px;
-  background-color: #35185a;
+  background-color: #9767bf;
   color: white;
+  border-radius: 20px;
 }
 .orderSummaryTotal > button:hover {
   width: 100%;
   padding: 0.3vmax;
   border-radius: 2px;
-  background-color: tomato;
+  border-radius: 20px;
+
+  background-color: #35185a;
 }

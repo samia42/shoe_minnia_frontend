@@ -32,7 +32,11 @@ function Order(props) {
       {loading ? (
         <Loader />
       ) : (
-        <TableContainer component={Paper} className="table-container">
+        <TableContainer
+          component={Paper}
+          className="table-container"
+          sx={{ width: "100%" }}
+        >
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead className="table-head">
               <TableRow className="table-head-row">

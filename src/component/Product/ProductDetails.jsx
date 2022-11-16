@@ -23,13 +23,14 @@ import { useSelector, useDispatch } from "react-redux";
 import Carousel from "react-material-ui-carousel";
 import { getProductDetails, newReview } from "../../actions/productAction";
 import { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { Navigate, useParams } from "react-router-dom";
 import ProductReviews from "./ProductReview";
 import "./productDetail.css";
 import Loader from "../Loader/Loader";
 import { addItemsToCart } from "../../actions/cartAction";
 import Header from "../layout/Header/Header";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { NEW_REVIEW_RESET } from "../../constants/productConstants";
 
 const Img = styled("img")({
@@ -52,10 +53,10 @@ const Item = styled(Paper)(({ theme }) => ({
 const ProdcutDetails = () => {
   const params = useParams();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { product, loading } = useSelector((state) => state.productDetails);
 
-  const { user } = useSelector((state) => state.user);
-  console.log(user);
+  const { user, isAuthenticated } = useSelector((state) => state.user);
   const { cartItems } = useSelector((state) => state.cart);
   const { success } = useSelector((state) => state.newReviews);
   const itemPresent = cartItems.find((item) => item.product === product._id);
@@ -84,10 +85,13 @@ const ProdcutDetails = () => {
   };
 
   const submitReviewtoggle = () => {
-    open ? setOpen(false) : setOpen(true);
+    isAuthenticated
+      ? open
+        ? setOpen(false)
+        : setOpen(true)
+      : Toast("Please Login Frist", "error");
   };
   const cart = cartItems.filter((item) => item.product === product._id);
-  console.log(cart, "0", product.stock <= cart[0]?.quantity);
   let productCounts = 0;
   const addToCartHandler = () => {
     dispatch(
@@ -102,15 +106,20 @@ const ProdcutDetails = () => {
   };
 
   const reviewSubmitHandler = () => {
-    const myForm = new FormData();
+    if (isAuthenticated) {
+      const myForm = new FormData();
 
-    myForm.set("rating", rating);
-    myForm.set("comment", comment);
-    myForm.set("productId", params.id);
+      myForm.set("rating", rating);
+      myForm.set("comment", comment);
+      myForm.set("productId", params.id);
 
-    dispatch(newReview(myForm));
+      dispatch(newReview(myForm));
 
-    setOpen(false);
+      setOpen(false);
+    } else {
+      Toast("Please Login to submit review", "error");
+      // navigate("/login");
+    }
   };
 
   return (
@@ -143,7 +152,7 @@ const ProdcutDetails = () => {
                   <div className="review">
                     <Rating
                       // name="simple-controlled"
-                      value={product?.reviews?.length}
+                      value={product?.ratings}
                       readOnly
                     />
                     <Typography>({product?.reviews?.length}Reviews)</Typography>
@@ -176,25 +185,25 @@ const ProdcutDetails = () => {
                     
                     <Button  sx={{color:"#35185a", backgroundColor:"#bb84e8"}} >+</Button> */}
                     </div>
-                  </div>
-                  <div>
-                    <Button
-                      sx={{ ml: 2 }}
-                      variant="contained"
-                      color="secondary"
-                      // disabled={product.stock <= productCount}
-                      disabled={
-                        (itemPresent?.stock <= productCount &&
-                          product?.stock <= productCount) ||
-                        product.stock <= cart[0]?.quantity
-                      }
-                      onClick={addToCartHandler}
-                    >
-                      {product?.stock <= cart[0]?.quantity
-                        ? "No Items"
-                        : "Add To Cart"}
-                      {/* Add to Cart */}
-                    </Button>
+                    <div>
+                      <Button
+                        sx={{ ml: 2 }}
+                        variant="contained"
+                        color="secondary"
+                        // disabled={product.stock <= productCount}
+                        disabled={
+                          (itemPresent?.stock <= productCount &&
+                            product?.stock <= productCount) ||
+                          product.stock <= cart[0]?.quantity
+                        }
+                        onClick={addToCartHandler}
+                      >
+                        {product?.stock <= cart[0]?.quantity
+                          ? "No Items"
+                          : "Add To Cart"}
+                        {/* Add to Cart */}
+                      </Button>
+                    </div>
                   </div>
                   <div className="status">
                     <Typography>
@@ -284,10 +293,11 @@ const ProdcutDetails = () => {
                         ))}
                       {product.reviews.length > 3 ? (
                         <Button
-                          variant="contained"
+                          variant="outlined"
                           sx={{
                             width: "20%",
                             display: "flex",
+                            padding: "1rem",
                             justifyContent: "center",
                             alignItem: "center",
                             height: "50px",

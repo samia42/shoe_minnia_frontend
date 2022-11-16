@@ -56,8 +56,12 @@ function OrderDetail(props) {
       <Box className="price">
         <Typography>Total Price</Typography>
         {order?.totalPrice}
+        <Typography
+          sx={{ marginTop: "40px", textAlign: "center", color: "#bb84e8" }}
+        >
+          Thank you for your purchase
+        </Typography>
       </Box>
-      <Button onClick={() => navigate(-1)}>Go Back</Button>
     </Container>
   );
 }

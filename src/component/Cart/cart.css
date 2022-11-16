@@ -97,6 +97,9 @@
   cursor: pointer;
   margin: 1vmax 4vmax;
 }
+.checkOutButton > button:hover {
+  background-color: #352a3f;
+}
 .item-name {
   padding-top: 20px;
 }

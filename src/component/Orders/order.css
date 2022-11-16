@@ -1,16 +1,14 @@
 .table-container {
-  margin: auto;
-  display: flex;
-  width: 89vw;
-  padding: 1vmax;
-  margin: 2vmax;
+  margin-right: 1vmax;
+  padding: 0px 1vmax;
+  margin-top: 2vmax;
 }
 .table-head {
-  background-color: #35185a;
+  background-color: #bb84e8;
   color: white !important;
 }
 .table-head-row > * {
-  color: white;
+  color: white !important;
 }
 .order-detail-container {
   padding: 2vmax;
